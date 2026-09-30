@@ -87,12 +87,12 @@ Future<T?> showSmSheet<T>(BuildContext context, WidgetBuilder builder) {
   );
 }
 
-Widget _title(String t, {double bottom = 4}) => Padding(
+Widget smSheetTitle(String t, {double bottom = 4}) => Padding(
   padding: EdgeInsets.only(bottom: bottom),
   child: Text(t, style: st(18, w: w700)),
 );
 
-Widget _darkButton(
+Widget smButton(
   String label,
   VoidCallback? onTap, {
   double height = 54,
@@ -125,7 +125,7 @@ void showPickerSheet(BuildContext context, WidgetRef ref, {required String? targ
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _title('내 화장대에서 불러오기'),
+            smSheetTitle('내 화장대에서 불러오기'),
             Text(targetId != null ? '선택한 단계를 이 제품으로 채워요' : '루틴의 빈 단계에 추가하거나 새 단계로 넣어요', style: st(13, c: SM.inkSub)),
             const SizedBox(height: 14),
             if (products.isEmpty)
@@ -304,7 +304,7 @@ void showIngredientSheet(BuildContext context, String key) {
           ),
         ),
         const SizedBox(height: 16),
-        _darkButton('성분 설명 닫기', () => Navigator.of(ctx).pop(), height: 52),
+        smButton('성분 설명 닫기', () => Navigator.of(ctx).pop(), height: 52),
       ],
     );
   });
@@ -391,7 +391,7 @@ class _ScanSheetState extends ConsumerState<_ScanSheet> with SingleTickerProvide
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _title('바코드로 제품 찾기'),
+        smSheetTitle('바코드로 제품 찾기'),
         Text('제품 뒷면의 바코드를 네모 안에 맞춰 주세요', style: st(13, c: SM.inkSub)),
         const SizedBox(height: 14),
         ClipRRect(
@@ -457,7 +457,7 @@ class _ScanSheetState extends ConsumerState<_ScanSheet> with SingleTickerProvide
         ),
         if (isMock) ...[
           const SizedBox(height: 14),
-          _darkButton('샘플 바코드로 스캔해 보기', _sample),
+          smButton('샘플 바코드로 스캔해 보기', _sample),
           const SizedBox(height: 10),
           Text(
             '목업 · 샘플 제품 DB에는 실제 바코드가 없어서, 이 버튼으로 스캔을 체험할 수 있어요',
@@ -512,7 +512,7 @@ void showProductDetailSheet(BuildContext context, WidgetRef ref, Product p) {
           children: [for (final k in p.ingredients) Pill(k, bg: SM.slate100, fg: SM.ink700, height: 28, hPad: 11, size: 12.5)],
         ),
         const SizedBox(height: 20),
-        _darkButton('분석 루틴에 추가하기', () {
+        smButton('분석 루틴에 추가하기', () {
           ref.read(routineProvider.notifier).addFromVanity(p, null);
           Navigator.of(ctx).pop();
           router.go(Routes.analyzer);
@@ -622,7 +622,7 @@ class _AddProductSheetState extends ConsumerState<_AddProductSheet> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _title('제품 직접 등록하기', bottom: 16),
+        smSheetTitle('제품 직접 등록하기', bottom: 16),
         SizedBox(
           height: 52,
           child: TextField(controller: _brand, style: st(15), decoration: _deco('브랜드명'), textInputAction: TextInputAction.next),
@@ -669,15 +669,7 @@ class _AddProductSheetState extends ConsumerState<_AddProductSheet> {
           decoration: _deco('주요 성분을 쉼표로 구분해 입력 (필수)\n예) 나이아신아마이드, 판테놀', pad: const EdgeInsets.symmetric(horizontal: 16, vertical: 14)),
         ),
         const SizedBox(height: 16),
-        _darkButton(
-          '화장대에 등록',
-          _submit,
-          height: 56,
-          bg: _can ? SM.ink : SM.line,
-          fg: _can ? Colors.white : SM.inkSub,
-          size: 16,
-          weight: w700,
-        ),
+        smButton('화장대에 등록', _submit, height: 56, bg: _can ? SM.ink : SM.line, fg: _can ? Colors.white : SM.inkSub, size: 16, weight: w700),
       ],
     );
   }

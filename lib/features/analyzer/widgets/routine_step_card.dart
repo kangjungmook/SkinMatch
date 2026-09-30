@@ -13,6 +13,7 @@ import '../../../providers/core_providers.dart';
 import '../../../providers/routine_provider.dart';
 import '../../../widgets/common.dart';
 import '../../../widgets/dashed_border.dart';
+import '../label_scan.dart';
 import '../sheets.dart';
 
 /// 루틴 한 단계 (왼쪽 번호 레일 + 카드)
@@ -102,6 +103,11 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
   void _pick(Product p) {
     setState(_resetSearch);
     _n.pickProduct(_s.id, p);
+  }
+
+  void _photo() {
+    setState(_resetSearch);
+    startLabelScan(context, ref, stepId: _s.id, category: _s.category);
   }
 
   Future<void> _paste() async {
@@ -350,6 +356,8 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
           ),
           if (_searching) ...[const SizedBox(width: 8), Text('검색 중…', style: st(11.5, c: SM.inkSub))],
           const SizedBox(width: 8),
+          _FieldIconBtn(icon: Ic.camera, label: '사진으로 전성분 입력', onTap: _photo),
+          const SizedBox(width: 6),
           Pressable(
             semanticLabel: '바코드 스캔',
             onTap: () => showScanSheet(context, ref, targetId: _s.id),
@@ -406,22 +414,37 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
                       ),
                       const SizedBox(width: 8),
                       Pressable(
+                        scale: 1,
                         onTap: () {
                           setState(_resetSearch);
                           _n.manualMode(_s.id);
                         },
+                        child: Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Text('직접 입력', style: st(12, c: SM.inkSub)),
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Pressable(
+                        onTap: _photo,
                         child: Container(
                           height: 30,
                           padding: const EdgeInsets.symmetric(horizontal: 12),
-                          alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: SM.primaryBg,
                             borderRadius: BorderRadius.circular(999),
                             border: Border.all(color: SM.primaryLine),
                           ),
-                          child: Text(
-                            '성분 직접 입력',
-                            style: st(12.5, w: w600, c: SM.primaryTx),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SmIcon(Ic.camera, size: 13, color: SM.primaryTx, strokeWidth: 2),
+                              const SizedBox(width: 5),
+                              Text(
+                                '사진으로 입력',
+                                style: st(12.5, w: w600, c: SM.primaryTx),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -859,4 +882,32 @@ class AddStepRow extends ConsumerWidget {
       ],
     );
   }
+}
+
+/// 검색칸 오른쪽의 작은 흰 버튼 (사진 입력)
+class _FieldIconBtn extends StatelessWidget {
+  const _FieldIconBtn({required this.icon, required this.label, required this.onTap});
+  final String icon;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => Tooltip(
+    message: label,
+    child: Pressable(
+      semanticLabel: label,
+      onTap: onTap,
+      child: Container(
+        width: 32,
+        height: 32,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [BoxShadow(color: Color(0x140F172A), offset: Offset(0, 1), blurRadius: 2)],
+        ),
+        child: SmIcon(icon, size: 17, strokeWidth: 1.9),
+      ),
+    ),
+  );
 }

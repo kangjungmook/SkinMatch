@@ -66,6 +66,39 @@ Firebase에는 카카오 제공업체가 없어서 **OIDC**로 연결해요. Fir
   (`ios/Runner/Runner.entitlements`에 필요한 값이 이미 들어 있어요. Xcode가 이 파일을 연결하면 돼요.)
 - Android·Web에서 Apple 로그인을 쓰려면 Firebase 문서대로 Services ID와 키를 Firebase에 등록해야 해요.
 
+## 사진으로 전성분 입력
+
+루틴 단계의 검색칸 옆 **카메라 버튼**(또는 검색 결과가 없을 때 "사진으로 입력")을 누르면, 제품 뒷면 사진에서 전성분을 읽어요.
+
+1. **글자 인식:** Google ML Kit 한국어 모델로 휴대폰 안에서 읽어요. 무료이고 사진을 서버로 보내지 않아요. **Android·iOS에서만 동작하고 웹은 지원하지 않아요.**
+2. **정리:** "전성분" 뒤부터 "사용시의 주의사항" 같은 문구 앞까지 잘라요. 줄바꿈으로 끊긴 이름을 잇고, `1,2-헥산다이올`처럼 숫자 사이 쉼표는 나누지 않아요.
+3. **교정:** 성분 사전과 자모 단위로 비교해서 오타를 고쳐요 (`lib/core/label_parser.dart`).
+   - 회색: 사전과 일치 / 노란색: 자동으로 고침 / 빨간색: 사전에 없음
+   - 레티놀·AHA처럼 충돌 분석에 중요한 성분이 고쳐졌거나 사전에 없으면, 사용자가 확인해야 루틴에 넣을 수 있어요.
+
+### 성분 사전 바꾸기 (식약처 데이터)
+앱에 들어 있는 `assets/data/ingredient_dictionary.json`은 90개 정도의 **임시 사전**이에요. 식약처 "화장품 원료성분정보"로 바꾸면 교정이 훨씬 정확해져요.
+
+1. data.go.kr에서 [식품의약품안전처_화장품 원료성분정보](https://www.data.go.kr/data/15111774/openapi.do) 활용신청 (개발용은 자동 승인)
+2. 마이페이지에서 인증키(Decoding) 복사
+3. 프로젝트 폴더에서 실행:
+   ```bash
+   MFDS_SERVICE_KEY=발급받은키 dart run tool/fetch_mfds_ingredients.dart
+   ```
+4. 바뀐 `assets/data/ingredient_dictionary.json`을 커밋해요.
+
+> 이 스크립트는 응답 명세(Models)대로 만들고 가짜 서버로 시험했어요. 실제 API로는 아직 실행해 보지 못했어요. 특히 이명(`INGR_SYNONYM`) 칸의 구분 방식은 실제 데이터를 보고 확인해 주세요.
+
+### 플랫폼 설정 (처음 한 번)
+- **Android:** `android/app/build.gradle.kts`에 ML Kit 한국어 모델이 추가돼 있어요. 추가 작업은 없어요.
+- **iOS:** 최소 버전을 15.5로 올려 두었어요. `flutter build ios`를 한 번 실행하면 `ios/Podfile`이 생겨요. 그 파일을 아래처럼 고친 뒤 `cd ios && pod install`을 실행하세요.
+  ```ruby
+  platform :ios, '15.5'
+  # target 'Runner' do 안에 추가
+  pod 'GoogleMLKit/TextRecognitionKorean', '~> 9.0.0'
+  ```
+  Xcode → Runner → Build Settings → Excluded Architectures → Any SDK에 `armv7`도 넣어 주세요 (ML Kit 요구 사항).
+
 ## 제품 DB API 연결
 
 `PRODUCT_API_BASE_URL`을 넣으면 `ApiProductRepository`로 바뀌어요. 서버는 아래 형식만 맞추면 돼요.

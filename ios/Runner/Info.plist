@@ -31,7 +31,9 @@
 		<string>kakaoplus</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>제품 바코드를 스캔해 전성분을 불러오기 위해 카메라를 사용해요.</string>
+	<string>제품 바코드와 전성분을 찍어서 루틴에 넣기 위해 카메라를 사용해요.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>앨범에 있는 전성분 사진을 골라 루틴에 넣기 위해 사진에 접근해요.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

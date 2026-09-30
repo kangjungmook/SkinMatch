@@ -51,6 +51,8 @@ dependencies:
   firebase_auth: ^6.7.0
   intl: ^0.20.3
   collection: ^1.19.1
+  image_picker: ^1.2.3
+  google_mlkit_text_recognition: ^0.17.1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +73,7 @@ flutter:
 
   assets:
     - assets/brand/
+    - assets/data/
 
   fonts:
     - family: Pretendard

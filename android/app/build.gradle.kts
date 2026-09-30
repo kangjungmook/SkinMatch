@@ -59,3 +59,8 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // 제품 뒷면 전성분 사진 인식 (ML Kit 한국어 모델)
+    implementation("com.google.mlkit:text-recognition-korean:16.0.1")
+}
