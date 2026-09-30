@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22f%22%3E%3Cpath%20d%3D%22M0%200H60C38%2045%2082%2075%2060%20120H0Z%22%3E%3C%2Fpath%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Crect%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2224%22%20fill%3D%22%2310B981%22%3E%3C%2Frect%3E%3Cpath%20d%3D%22M60%2016C60%2016%2028%2052%2028%2075a32%2032%200%200%200%2064%200C92%2052%2060%2016%2060%2016Z%22%20fill%3D%22%23A7F3D0%22%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M60%2016C60%2016%2028%2052%2028%2075a32%2032%200%200%200%2064%200C92%2052%2060%2016%2060%2016Z%22%20fill%3D%22%23fff%22%20clip-path%3D%22url(%23f)%22%3E%3C%2Fpath%3E%3Ccircle%20cx%3D%2249%22%20cy%3D%2276%22%20r%3D%227%22%20fill%3D%22%230F172A%22%3E%3C%2Fcircle%3E%3Ccircle%20cx%3D%2271%22%20cy%3D%2276%22%20r%3D%227%22%20fill%3D%22%230F172A%22%3E%3C%2Fcircle%3E%3C%2Fsvg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+html,body{margin:0;padding:0;background:#E9EDF1;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+a{color:#047857;text-decoration:none}a:hover{color:#065F46}
+textarea::placeholder,input::placeholder{color:#94A3B8}
+textarea,input,button{font-family:inherit}
+.sm-scroll::-webkit-scrollbar{display:none}
+@keyframes smFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes smSheet{from{transform:translateY(100%)}to{transform:none}}
+@keyframes smDim{from{opacity:0}to{opacity:1}}
+@keyframes smShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes smPulse{0%,100%{transform:scale(.9);opacity:.9}50%{transform:scale(1.28);opacity:0}}
+@keyframes smScan{0%{top:14%}50%{top:82%}100%{top:14%}}
+@keyframes smToast{from{opacity:0;transform:translate(-50%,-10px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;justify-content:center;align-items:center;padding:clamp(0px, calc((100vw - 480px) * 100), 24px);font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#0F172A;letter-spacing:-0.01em">
+<div style="position:relative;width:100%;max-width:440px;height:calc(min(100dvh, 948px) - 2 * clamp(0px, calc((100vw - 480px) * 100), 24px));background:#F8FAFC;border-radius:clamp(0px, calc((100vw - 480px) * 100), 44px);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(15,23,42,.06),0 40px 80px -30px rgba(15,23,42,.35)">
+
+<div style="flex:none;height:46px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:600;letter-spacing:0;position:relative;z-index:30">
+<span>9:41</span>
+<div style="display:flex;align-items:center;gap:6px">
+<svg width="17" height="11" viewBox="0 0 17 11" fill="#0F172A"><rect x="0" y="7" width="3" height="4" rx="1"></rect><rect x="4.5" y="5" width="3" height="6" rx="1"></rect><rect x="9" y="2.5" width="3" height="8.5" rx="1"></rect><rect x="13.5" y="0" width="3" height="11" rx="1"></rect></svg>
+<svg width="15" height="11" viewBox="0 0 24 17" fill="none" stroke="#0F172A" stroke-width="2.6" stroke-linecap="round"><path d="M2 6a15 15 0 0 1 20 0"></path><path d="M5.5 9.6a10 10 0 0 1 13 0"></path><path d="M9 13a5 5 0 0 1 6 0"></path></svg>
+<div style="width:25px;height:12px;border:1.5px solid rgba(15,23,42,.45);border-radius:4px;padding:1.5px"><div style="width:78%;height:100%;background:#0F172A;border-radius:2px"></div></div>
+</div>
+</div>
+
+<sc-if value="{{ showAuth }}" hint-placeholder-val="{{ true }}">
+<div class="sm-scroll" style="flex:1;overflow-y:auto;padding:20px 24px 32px;animation:smFade .45s cubic-bezier(.22,1,.36,1)">
+<div style="display:flex;align-items:center;gap:10px">
+<div style="width:44px;height:44px;border-radius:14px;box-shadow:0 8px 20px -8px rgba(16,185,129,.7)"><svg width="44" height="44" viewBox="0 0 120 120"><defs><clipPath id="sm-s113"><path d="M0 0H60C38 45 82 75 60 120H0Z"></path></clipPath></defs><rect width="120" height="120" rx="28" fill="#10B981"></rect><path d="M60 16C60 16 28 52 28 75a32 32 0 0 0 64 0C92 52 60 16 60 16Z" fill="#A7F3D0"></path><path d="M60 16C60 16 28 52 28 75a32 32 0 0 0 64 0C92 52 60 16 60 16Z" fill="#fff" clip-path="url(#sm-s113)"></path><circle cx="49" cy="76" r="5" fill="#0F172A"></circle><circle cx="71" cy="76" r="5" fill="#0F172A"></circle><path d="M53 87q7 6 14 0" stroke="#0F172A" stroke-width="4.5" fill="none" stroke-linecap="round"></path></svg></div>
+<div style="display:flex;flex-direction:column;gap:1px">
+<span style="font-size:19px;font-weight:700;letter-spacing:-0.03em">SkinMatch</span>
+<span style="font-size:11.5px;color:#64748B;font-weight:500">스킨매치</span>
+</div>
+</div>
+<h1 style="margin:36px 0 10px;font-size:29px;line-height:1.3;font-weight:700;letter-spacing:-0.035em;text-wrap:pretty">3초 만에 시작하는<br>안심 스킨케어</h1>
+<p style="margin:0 0 30px;font-size:15px;line-height:1.55;color:#64748B">지금 바르는 제품과 새 제품의 성분 궁합,<br>AI가 충돌 위험부터 루틴까지 알려드려요.</p>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<button onClick="{{ loginKakao }}" style="height:56px;border:none;border-radius:18px;background:#FEE500;color:#3C1E1E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .15s" style-active="transform:scale(.98)">
+<svg width="20" height="20" viewBox="0 0 24 24"><path fill="#3C1E1E" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"></path></svg>
+카카오로 3초 만에 시작하기</button>
+<button onClick="{{ loginApple }}" style="height:56px;border:none;border-radius:18px;background:#0F172A;color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .15s" style-active="transform:scale(.98)">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.9 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.77-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.41-3.67zM14.1 5.86c.63-.77 1.06-1.83.94-2.89-.91.04-2.01.61-2.66 1.37-.58.67-1.09 1.76-.96 2.79 1.02.08 2.05-.51 2.68-1.27z"></path></svg>
+Apple로 계속하기</button>
+<button onClick="{{ loginGoogle }}" style="height:56px;border:1px solid #E2E8F0;border-radius:18px;background:#fff;color:#0F172A;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .15s,background .15s" style-hover="background:#F8FAFC" style-active="transform:scale(.98)">
+<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"></path><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"></path><path fill="#FBBC05" d="M5.84 14.1A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.44.34-2.1V7.07H2.18A11 11 0 0 0 1 12c0 1.78.43 3.45 1.18 4.93l3.66-2.83z"></path><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"></path></svg>
+Google로 계속하기</button>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;margin:28px 0 20px;color:#64748B;font-size:13px">
+<div style="flex:1;height:1px;background:#E2E8F0"></div><span>또는 이메일로 계속하기</span><div style="flex:1;height:1px;background:#E2E8F0"></div>
+</div>
+
+<div style="display:flex;padding:4px;background:#EEF2F6;border-radius:16px;margin-bottom:14px">
+<button onClick="{{ modeLogin }}" style="flex:1;height:40px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .25s;background:{{ tabLoginBg }};color:{{ tabLoginColor }};box-shadow:{{ tabLoginShadow }}">로그인</button>
+<button onClick="{{ modeSignup }}" style="flex:1;height:40px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .25s;background:{{ tabSignupBg }};color:{{ tabSignupColor }};box-shadow:{{ tabSignupShadow }}">회원가입</button>
+</div>
+
+<form onSubmit="{{ submitAuth }}" style="display:flex;flex-direction:column;gap:10px">
+<label style="position:relative;display:block;height:60px;background:#fff;border-radius:18px;border:1px solid {{ emailBorder }};box-shadow:{{ emailRing }};transition:border-color .2s,box-shadow .2s">
+<span style="position:absolute;left:17px;top:{{ emailLabelTop }};font-size:{{ emailLabelSize }};color:{{ emailLabelColor }};font-weight:500;transition:all .2s cubic-bezier(.22,1,.36,1);pointer-events:none">이메일</span>
+<input type="email" value="{{ email }}" onChange="{{ onEmail }}" onFocus="{{ focusEmail }}" onBlur="{{ blurField }}" autoComplete="email" style="position:absolute;inset:0;width:100%;border:none;outline:none;background:transparent;padding:22px 17px 0;font-size:15.5px;color:#0F172A">
+</label>
+<label style="position:relative;display:block;height:60px;background:#fff;border-radius:18px;border:1px solid {{ pwBorder }};box-shadow:{{ pwRing }};transition:border-color .2s,box-shadow .2s">
+<span style="position:absolute;left:17px;top:{{ pwLabelTop }};font-size:{{ pwLabelSize }};color:{{ pwLabelColor }};font-weight:500;transition:all .2s cubic-bezier(.22,1,.36,1);pointer-events:none">{{ pwLabel }}</span>
+<input type="password" value="{{ pw }}" onChange="{{ onPw }}" onFocus="{{ focusPw }}" onBlur="{{ blurField }}" style="position:absolute;inset:0;width:100%;border:none;outline:none;background:transparent;padding:22px 17px 0;font-size:15.5px;color:#0F172A">
+</label>
+<sc-if value="{{ authErr }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:13px;color:#DC2626;padding:0 4px;display:flex;align-items:center;gap:6px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"></path></svg>{{ authErr }}</div>
+</sc-if>
+<button type="submit" style="height:56px;margin-top:6px;border:none;border-radius:18px;background:#0F172A;color:#fff;font-size:16px;font-weight:600;cursor:pointer;opacity:{{ authBtnOpacity }};transition:transform .15s,opacity .2s" style-active="transform:scale(.98)">{{ authBtnText }}</button>
+</form>
+<div style="display:flex;justify-content:center;align-items:center;gap:14px;margin-top:18px;font-size:13.5px;color:#64748B">
+<button onClick="{{ findPw }}" style="border:none;background:none;color:#64748B;font-size:13.5px;cursor:pointer;padding:6px">비밀번호 찾기</button>
+<span style="width:1px;height:12px;background:#CBD5E1"></span>
+<button onClick="{{ toggleMode }}" style="border:none;background:none;color:#0F172A;font-weight:600;font-size:13.5px;cursor:pointer;padding:6px">{{ altModeText }}</button>
+</div>
+<p style="margin:24px 0 0;text-align:center;font-size:11.5px;line-height:1.6;color:#94A3B8">계속하면 이용약관 및 개인정보 처리방침에 동의하게 됩니다.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ showOnb }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;min-height:0;animation:smFade .45s cubic-bezier(.22,1,.36,1)">
+<div style="flex:none;padding:6px 20px 0;display:flex;align-items:center;gap:12px">
+<button onClick="{{ onbBack }}" aria-label="이전" style="width:36px;height:36px;border-radius:12px;border:1px solid #F1F5F9;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0F172A;opacity:{{ onbBackOpacity }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+<div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:5px">
+<sc-for list="{{ onbBars }}" as="p" hint-placeholder-count="3"><div style="height:4px;border-radius:4px;background:{{ p.bg }};transition:background .35s"></div></sc-for>
+</div>
+<span style="width:36px;text-align:right;font-size:13px;color:#64748B;font-variant-numeric:tabular-nums">{{ onbStepText }}</span>
+</div>
+<div ref="{{ onbRef }}" class="sm-scroll" style="flex:1;overflow-y:auto;padding:22px 20px 24px">
+
+<sc-if value="{{ onb0 }}" hint-placeholder-val="{{ true }}">
+<div style="animation:smFade .4s cubic-bezier(.22,1,.36,1)">
+<div style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:#fff;border:1px solid #E2E8F0;font-size:12px;font-weight:600;color:#334155;margin-bottom:18px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>Baumann 피부 타입 분류 기준 참고 · 약 1분</div>
+<div style="font-size:12.5px;font-weight:700;color:#047857;letter-spacing:0.02em">STEP 1 · 기본 피부 타입</div>
+<h1 style="margin:8px 0 8px;font-size:24px;line-height:1.38;font-weight:700;letter-spacing:-0.035em;text-wrap:pretty">평소 피부 타입을 알려주세요</h1>
+<p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#64748B;text-wrap:pretty">세안 후 30분 동안 아무것도 바르지 않았을 때를 기준으로 골라주세요.</p>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ baseCards }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.onClick }}" style="display:flex;align-items:center;gap:14px;text-align:left;padding:16px;border-radius:20px;border:1.5px solid {{ c.border }};background:{{ c.bg }};cursor:pointer;transition:all .2s cubic-bezier(.22,1,.36,1)" style-active="transform:scale(.98)">
+<span style="flex:none;width:22px;height:22px;border-radius:50%;border:2px solid {{ c.radio }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:50%;background:{{ c.dot }}"></span></span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:15.5px;font-weight:600;color:#0F172A">{{ c.label }}</span><span style="font-size:13px;color:#64748B;line-height:1.45">{{ c.desc }}</span></span>
+</button>
+</sc-for>
+<button onClick="{{ openQuiz }}" style="display:flex;align-items:center;gap:14px;text-align:left;padding:16px;border-radius:20px;border:1.5px dashed {{ unsure.border }};background:{{ unsure.bg }};cursor:pointer;transition:all .2s">
+<span style="flex:none;width:22px;height:22px;border-radius:50%;border:2px solid {{ unsure.radio }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:50%;background:{{ unsure.dot }}"></span></span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:15.5px;font-weight:600;color:#0F172A">잘 모르겠어요</span><span style="font-size:13px;color:#64748B;line-height:1.45">질문 하나로 간단히 추정해 드려요</span></span>
+</button>
+</div>
+<sc-if value="{{ quizOpen }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:22px;box-shadow:0 10px 30px -20px rgba(15,23,42,.18);padding:18px;margin-top:10px;animation:smFade .35s cubic-bezier(.22,1,.36,1)">
+<div style="font-size:14.5px;font-weight:600;line-height:1.5;margin-bottom:12px">세안 후 30분, 아무것도 바르지 않았을 때 피부는?</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<sc-for list="{{ quizOpts }}" as="q" hint-placeholder-count="4">
+<button onClick="{{ q.onClick }}" style="min-height:48px;padding:10px 12px;border-radius:14px;border:1px solid {{ q.border }};background:{{ q.bg }};color:{{ q.color }};font-size:13.5px;font-weight:600;cursor:pointer;line-height:1.35;transition:all .2s">{{ q.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ quizResult }}" hint-placeholder-val="{{ false }}"><div style="margin-top:12px;font-size:13px;color:#047857;font-weight:600">{{ quizResult }}</div></sc-if>
+</div>
+</sc-if>
+<div style="display:flex;gap:10px;margin-top:16px;padding:14px 16px;border-radius:18px;background:#F1F5F9;font-size:12.5px;line-height:1.6;color:#475569">
+<svg style="flex:none;margin-top:2px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
+<span>같은 성분이라도 피부 타입에 따라 자극 정도가 달라요. 선택한 정보는 충돌 위험도를 보정하는 데 사용돼요.</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ onb1 }}" hint-placeholder-val="{{ false }}">
+<div style="animation:smFade .4s cubic-bezier(.22,1,.36,1)">
+<div style="font-size:12.5px;font-weight:700;color:#047857;letter-spacing:0.02em">STEP 2 · 피부 고민 &amp; 민감도</div>
+<h1 style="margin:8px 0 8px;font-size:24px;line-height:1.38;font-weight:700;letter-spacing:-0.035em;text-wrap:pretty">해당하는 피부 고민을 모두 골라주세요</h1>
+<p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#64748B;text-wrap:pretty">없다면 선택하지 않고 넘어가도 괜찮아요.</p>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
+<sc-for list="{{ concernCards }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.onClick }}" style="position:relative;display:flex;flex-direction:column;gap:4px;text-align:left;padding:14px 14px 15px;border-radius:18px;border:1.5px solid {{ c.border }};background:{{ c.bg }};cursor:pointer;transition:all .2s cubic-bezier(.22,1,.36,1)" style-active="transform:scale(.97)">
+<span style="position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{ c.dotBg }};border:1.5px solid {{ c.dotBorder }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<span style="font-size:14.5px;font-weight:600;color:#0F172A;padding-right:24px">{{ c.label }}</span>
+<span style="font-size:12px;color:#64748B;line-height:1.45">{{ c.desc }}</span>
+</button>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:22px;box-shadow:0 10px 30px -20px rgba(15,23,42,.18);padding:18px;margin-top:14px">
+<div style="font-size:15px;font-weight:600;line-height:1.45">새 제품을 쓸 때 자극을 얼마나 자주 느끼나요?</div>
+<div style="font-size:12.5px;color:#64748B;margin:4px 0 14px">따가움, 붉어짐, 가려움 모두 포함해요</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
+<sc-for list="{{ sensBtns }}" as="b" hint-placeholder-count="5">
+<button onClick="{{ b.onClick }}" style="height:64px;border-radius:14px;border:1px solid {{ b.border }};background:{{ b.bg }};color:{{ b.color }};cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all .2s">
+<span style="font-size:17px;font-weight:700">{{ b.n }}</span><span style="font-size:10.5px;font-weight:500;color:{{ b.sub }};white-space:nowrap">{{ b.label }}</span>
+</button>
+</sc-for>
+</div>
+<div style="margin-top:12px;font-size:13px;color:#475569;line-height:1.5">{{ sensDesc }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ onb2 }}" hint-placeholder-val="{{ false }}">
+<div style="animation:smFade .4s cubic-bezier(.22,1,.36,1)">
+<div style="font-size:12.5px;font-weight:700;color:#047857;letter-spacing:0.02em">STEP 3 · 사용 경험 &amp; 주의 사항</div>
+<h1 style="margin:8px 0 8px;font-size:24px;line-height:1.38;font-weight:700;letter-spacing:-0.035em;text-wrap:pretty">안전한 분석을 위해<br>몇 가지만 더 확인할게요</h1>
+<p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#64748B;text-wrap:pretty">해당하는 항목만 체크해 주세요.</p>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ historyRows }}" as="h" hint-placeholder-count="4">
+<button onClick="{{ h.onClick }}" style="display:flex;align-items:center;gap:12px;text-align:left;padding:15px 16px;border-radius:18px;border:1.5px solid {{ h.border }};background:{{ h.bg }};cursor:pointer;transition:all .2s">
+<span style="flex:none;width:22px;height:22px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:{{ h.boxBg }};border:1.5px solid {{ h.boxBorder }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<span style="font-size:14.5px;font-weight:500;color:#0F172A;line-height:1.45">{{ h.t }}</span>
+</button>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:22px;box-shadow:0 10px 30px -20px rgba(15,23,42,.18);margin-top:10px;padding:16px;display:flex;align-items:center;gap:14px">
+<div style="flex:1;min-width:0"><div style="font-size:14.5px;font-weight:600">임산부/수유부 주의 성분 알림</div><div style="font-size:12.5px;color:#64748B;margin-top:3px;line-height:1.5">레티노이드, 고농도 살리실산 감지 시 알려드려요</div></div>
+<button onClick="{{ togglePreg }}" aria-label="임산부 알림" style="flex:none;width:52px;height:32px;border:none;border-radius:999px;background:{{ pregTrack }};padding:3px;cursor:pointer;transition:background .25s">
+<div style="width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(15,23,42,.2);transform:translateX({{ pregKnob }});transition:transform .3s cubic-bezier(.34,1.56,.64,1)"></div>
+</button>
+</div>
+<div style="margin-top:14px;background:#0F172A;color:#fff;border-radius:24px;padding:18px">
+<div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>내 피부 프로필</div>
+<div style="margin-top:8px">
+<sc-for list="{{ profileRows }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:13.5px"><span style="flex:none;color:#CBD5E1">{{ r.k }}</span><span style="font-weight:600;text-align:right">{{ r.v }}</span></div>
+</sc-for>
+</div>
+<div style="margin-top:12px;font-size:12.5px;line-height:1.55;color:#A7F3D0">{{ adjustPreview }}</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:12px;padding:0 4px;font-size:12px;line-height:1.6;color:#64748B">
+<svg style="flex:none;margin-top:2px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+<span>피부 정보는 분석 보정에만 사용되며 마이페이지에서 언제든 수정·삭제할 수 있어요. 결과는 참고용이며 의학적 진단을 대체하지 않아요.</span>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="flex:none;padding:10px 20px 20px;border-top:1px solid #F1F5F9;background:#F8FAFC;display:flex;flex-direction:column;gap:2px">
+<button onClick="{{ onbNext }}" style="height:58px;border:none;border-radius:20px;background:{{ onbNextBg }};color:{{ onbNextColor }};font-size:16px;font-weight:700;cursor:pointer;transition:all .25s" style-active="transform:scale(.98)">{{ onbNextText }}</button>
+<button onClick="{{ skipOnb }}" style="height:38px;border:none;background:none;color:#64748B;font-size:13.5px;cursor:pointer">나중에 설정할게요</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showApp }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ scrollRef }}" class="sm-scroll" style="flex:1;overflow-y:auto;overflow-x:hidden;position:relative">
+
+<sc-if value="{{ showInput }}" hint-placeholder-val="{{ true }}">
+<div style="padding:8px 20px 200px;animation:smFade .4s cubic-bezier(.22,1,.36,1)">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+<div style="display:flex;align-items:center;gap:8px">
+<svg width="32" height="32" viewBox="0 0 120 120"><defs><clipPath id="sm-s114"><path d="M0 0H60C38 45 82 75 60 120H0Z"></path></clipPath></defs><rect width="120" height="120" rx="28" fill="#10B981"></rect><path d="M60 16C60 16 28 52 28 75a32 32 0 0 0 64 0C92 52 60 16 60 16Z" fill="#A7F3D0"></path><path d="M60 16C60 16 28 52 28 75a32 32 0 0 0 64 0C92 52 60 16 60 16Z" fill="#fff" clip-path="url(#sm-s114)"></path><circle cx="49" cy="76" r="6" fill="#0F172A"></circle><circle cx="71" cy="76" r="6" fill="#0F172A"></circle></svg>
+<span style="font-size:17px;font-weight:700;letter-spacing:-0.03em">SkinMatch</span>
+</div>
+<button onClick="{{ goProfile }}" style="width:38px;height:38px;border-radius:50%;border:1px solid #E2E8F0;background:#fff;font-size:14px;font-weight:700;color:#047857;cursor:pointer">{{ initial }}</button>
+</div>
+<h1 style="margin:0 0 10px;font-size:24px;line-height:1.4;font-weight:700;letter-spacing:-0.035em;text-wrap:pretty">{{ userName }}님, 오늘 바를 루틴의<br>성분 궁합을 확인해 보세요 <span style="color:#10B981">✦</span></h1>
+<button onClick="{{ goProfile }}" style="border:none;background:none;padding:0;margin:0 0 22px;font-size:13px;color:#64748B;cursor:pointer;display:flex;align-items:center;gap:4px;text-align:left">{{ skinSummary }}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+
+<sc-if value="{{ hasRecent }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;font-weight:600;margin-bottom:10px">최근 분석</div>
+<div class="sm-scroll" style="display:flex;gap:10px;overflow-x:auto;margin:0 -20px 22px;padding:0 20px 4px">
+<sc-for list="{{ recentCards }}" as="rc" hint-placeholder-count="1">
+<button onClick="{{ rc.onLoad }}" style="flex:none;width:220px;text-align:left;background:#fff;border:1px solid #F1F5F9;border-radius:20px;padding:12px;display:flex;gap:12px;align-items:center;cursor:pointer" style-active="transform:scale(.98)">
+<div style="flex:none;width:46px;height:46px;border-radius:15px;background:{{ rc.bg }};color:{{ rc.text }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">{{ rc.pct }}</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:13px;font-weight:600">{{ rc.title }} <span style="color:#94A3B8;font-weight:500">· {{ rc.time }}</span></span>
+<span style="font-size:12px;color:#64748B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ rc.sub }}</span>
+</div>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px">
+<div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:17px;font-weight:700">내 스킨케어 루틴</span><span style="font-size:13px;font-weight:600;color:#047857">{{ stepCount }}단계</span></div>
+<div style="display:flex;gap:6px;align-items:center">
+<sc-if value="{{ anyFilled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ clearAll }}" style="height:32px;padding:0 10px;border:none;background:none;color:#64748B;font-size:12.5px;cursor:pointer">비우기</button></sc-if>
+<button onClick="{{ sampleRoutine }}" style="height:32px;padding:0 12px;border-radius:999px;border:1px dashed #CBD5E1;background:#fff;color:#475569;font-size:12.5px;font-weight:500;cursor:pointer" style-hover="border-color:#10B981;color:#047857">+ 샘플 5단계 루틴</button>
+</div>
+</div>
+<p style="margin:0 0 8px;font-size:13px;line-height:1.55;color:#64748B">제품명만 검색하면 전성분을 자동으로 불러와요. 바르는 순서대로 쌓아 주세요.</p>
+<div style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;background:#FFFBEB;color:#B45309;font-size:11.5px;font-weight:600;margin-bottom:16px">목업 · 샘플 제품 {{ catalogCount }}개로 검색돼요 (실제 DB 연동 예정)</div>
+
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ stepCards }}" as="st" hint-placeholder-count="2">
+<div style="display:flex;gap:10px;animation:smFade .35s cubic-bezier(.22,1,.36,1) both">
+<div style="flex:none;width:28px;display:flex;flex-direction:column;align-items:center;padding-top:14px">
+<div style="width:28px;height:28px;border-radius:50%;background:{{ st.dotBg }};color:{{ st.dotColor }};border:1.5px solid {{ st.dotBorder }};font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .25s">{{ st.n }}</div>
+<div style="flex:1;width:2px;background:#E2E8F0;margin-top:4px"></div>
+</div>
+<div style="flex:1;min-width:0;margin-bottom:10px;background:#fff;border:1px solid #F1F5F9;border-radius:26px;box-shadow:0 14px 36px -24px rgba(15,23,42,.2);border-radius:22px;padding:12px 12px 12px 14px">
+<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+<div style="position:relative">
+<select value="{{ st.cat }}" onChange="{{ st.onCat }}" style="appearance:none;-webkit-appearance:none;height:32px;padding:0 28px 0 12px;border-radius:999px;border:1px solid #D1FAE5;background:#ECFDF5;color:#047857;font-size:13px;font-weight:600;cursor:pointer;outline:none;font-family:inherit"><option value="토너">토너</option><option value="에센스·앰플">에센스·앰플</option><option value="세럼">세럼</option><option value="아이크림">아이크림</option><option value="크림">크림</option><option value="선크림">선크림</option><option value="메이크업">메이크업</option><option value="기타">기타</option></select>
+<svg style="position:absolute;right:10px;top:10px;pointer-events:none" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;border:1px solid #F1F5F9;border-radius:11px;overflow:hidden;background:#F8FAFC">
+<button onClick="{{ st.onUp }}" aria-label="위로" title="위로 이동" style="width:28px;height:32px;border:none;background:transparent;color:#64748B;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:{{ st.upOpacity }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m18 15-6-6-6 6"></path></svg></button>
+<button onClick="{{ st.onDown }}" aria-label="아래로" title="아래로 이동" style="width:28px;height:32px;border:none;border-left:1px solid #F1F5F9;background:transparent;color:#64748B;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:{{ st.downOpacity }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg></button>
+</div>
+<button onClick="{{ st.onPaste }}" aria-label="클립보드 붙여넣기" title="클립보드 붙여넣기" style="width:32px;height:32px;border-radius:11px;border:1px solid #F1F5F9;background:#F8FAFC;color:#64748B;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="color:#0F172A"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path></svg></button>
+<button onClick="{{ st.onPick }}" aria-label="내 화장대에서 불러오기" title="내 화장대에서 불러오기" style="width:32px;height:32px;border-radius:11px;border:1px solid #F1F5F9;background:#F8FAFC;color:#64748B;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="color:#0F172A"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4l2 2v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8l2-2z"></path><path d="M8 13h8"></path></svg></button>
+<button onClick="{{ st.onRemove }}" aria-label="단계 삭제" title="단계 삭제" style="width:32px;height:32px;border-radius:11px;border:1px solid #F1F5F9;background:#F8FAFC;color:#64748B;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{ st.removeOpacity }}" style-hover="color:#DC2626"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+</div>
+<sc-if value="{{ st.hasProduct }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:16px;background:#F8FAFC;border:1px solid #F1F5F9;animation:smFade .3s cubic-bezier(.22,1,.36,1)">
+<div style="flex:none;width:46px;height:46px;border-radius:13px;background:repeating-linear-gradient(135deg,{{ st.pTint }} 0 6px,#FFFFFF80 6px 12px)"></div>
+<div style="flex:1;min-width:0">
+<div style="font-size:11.5px;color:#64748B;font-weight:500">{{ st.pBrand }}</div>
+<div style="font-size:14px;font-weight:700;line-height:1.35;margin-top:1px">{{ st.pName }}</div>
+<div style="font-size:12px;color:#64748B;line-height:1.5;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">전성분 · {{ st.pIng }}</div>
+</div>
+<button onClick="{{ st.onChangeProduct }}" style="flex:none;height:28px;padding:0 10px;border-radius:999px;border:1px solid #E2E8F0;background:#fff;color:#475569;font-size:12px;font-weight:600;cursor:pointer">변경</button>
+</div>
+</sc-if>
+<sc-if value="{{ st.searchMode }}" hint-placeholder-val="{{ true }}">
+<div style="position:relative;height:46px;border-radius:14px;border:1px solid {{ st.searchBorder }};background:#F8FAFC;display:flex;align-items:center;gap:8px;padding:0 12px;transition:border-color .2s">
+<svg style="flex:none" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+<input value="{{ st.query }}" onChange="{{ st.onQuery }}" placeholder="제품명으로 검색 (예: 레티놀 세럼)" style="flex:1;min-width:0;height:100%;border:none;outline:none;background:transparent;font-size:14.5px;color:#0F172A">
+<sc-if value="{{ st.searching }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:11.5px;color:#64748B">검색 중…</span></sc-if>
+<button onClick="{{ st.onScan }}" aria-label="바코드 스캔" title="바코드 스캔" style="flex:none;width:32px;height:32px;margin-right:-6px;border:none;border-radius:10px;background:#fff;color:#0F172A;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 2px rgba(15,23,42,.08)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10.5 8v8M14 8v8M17 8v8"></path></svg></button>
+</div>
+<sc-if value="{{ st.showDrop }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:6px;border:1px solid #F1F5F9;border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 14px 30px -18px rgba(15,23,42,.3);animation:smFade .25s cubic-bezier(.22,1,.36,1)">
+<sc-if value="{{ st.searching }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px;display:flex;flex-direction:column;gap:8px">
+<div style="height:34px;border-radius:10px;background:linear-gradient(90deg,#EEF2F6 25%,#F8FAFC 50%,#EEF2F6 75%);background-size:200% 100%;animation:smShimmer 1.1s linear infinite"></div>
+<div style="height:34px;width:80%;border-radius:10px;background:linear-gradient(90deg,#EEF2F6 25%,#F8FAFC 50%,#EEF2F6 75%);background-size:200% 100%;animation:smShimmer 1.1s linear infinite"></div>
+</div>
+</sc-if>
+<sc-for list="{{ st.results }}" as="rs" hint-placeholder-count="0">
+<button onClick="{{ rs.onPick }}" style="width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:10px 12px;border:none;border-bottom:1px solid #F1F5F9;background:#fff;cursor:pointer" style-hover="background:#F8FAFC">
+<div style="flex:none;width:36px;height:36px;border-radius:10px;background:repeating-linear-gradient(135deg,{{ rs.tint }} 0 5px,#FFFFFF80 5px 10px)"></div>
+<div style="flex:1;min-width:0">
+<div style="font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="color:#64748B;font-weight:500">{{ rs.brand }}</span> {{ rs.name }}</div>
+<div style="font-size:11.5px;color:#64748B;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ rs.preview }}</div>
+</div>
+<span style="flex:none;height:22px;padding:0 8px;border-radius:999px;background:#F1F5F9;color:#475569;font-size:11px;font-weight:600;display:flex;align-items:center">{{ rs.cat }}</span>
+</button>
+</sc-for>
+<sc-if value="{{ st.noResult }}" hint-placeholder-val="{{ false }}">
+<div style="padding:14px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+<span style="font-size:13px;color:#64748B">검색 결과가 없어요</span>
+<button onClick="{{ st.onManual }}" style="height:30px;padding:0 12px;border-radius:999px;border:1px solid #D1FAE5;background:#ECFDF5;color:#047857;font-size:12.5px;font-weight:600;cursor:pointer">성분 직접 입력</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ st.hintVisible }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px">
+<div style="display:flex;gap:5px;flex-wrap:wrap;min-width:0">
+<sc-for list="{{ st.quick }}" as="qk" hint-placeholder-count="2">
+<button onClick="{{ qk.onClick }}" style="height:26px;padding:0 10px;border-radius:999px;border:1px solid #F1F5F9;background:#fff;color:#475569;font-size:11.5px;font-weight:500;cursor:pointer" style-hover="color:#047857;border-color:#D1FAE5">{{ qk.t }}</button>
+</sc-for>
+</div>
+<button onClick="{{ st.onManual }}" style="flex:none;border:none;background:none;color:#64748B;font-size:12px;cursor:pointer;padding:4px;text-decoration:underline;text-underline-offset:3px">성분 직접 입력</button>
+</div>
+</sc-if>
+</sc-if>
+<sc-if value="{{ st.manualMode }}" hint-placeholder-val="{{ false }}">
+<textarea value="{{ st.text }}" onChange="{{ st.onText }}" rows="3" placeholder="전성분을 붙여넣어 주세요&#10;{{ st.ph }}" style="width:100%;border:1px solid #F1F5F9;background:#F8FAFC;border-radius:14px;padding:11px 13px;font-size:14px;line-height:1.5;color:#0F172A;resize:none;outline:none;display:block"></textarea>
+<button onClick="{{ st.onSearchMode }}" style="border:none;background:none;color:#047857;font-size:12.5px;font-weight:600;cursor:pointer;padding:6px 0 0">← 제품명으로 검색하기</button>
+</sc-if>
+<sc-if value="{{ st.filled }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">
+<sc-for list="{{ st.det }}" as="d" hint-placeholder-count="0">
+<button onClick="{{ d.onClick }}" style="height:24px;padding:0 9px;border:none;border-radius:999px;background:{{ d.bg }};color:{{ d.color }};font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;gap:4px;cursor:pointer" style-hover="filter:brightness(.96)">{{ d.n }}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+</sc-for>
+<sc-if value="{{ st.detNone }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#64748B">인식된 주요 성분 없음</span></sc-if>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+<div style="display:flex;gap:10px;align-items:center">
+<div style="flex:none;width:28px;display:flex;justify-content:center"><div style="width:28px;height:28px;border-radius:50%;border:1.5px dashed #CBD5E1;background:#fff;color:#64748B;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></div></div>
+<button onClick="{{ addStep }}" style="flex:1;height:46px;border-radius:16px;border:1.5px dashed #CBD5E1;background:transparent;color:#334155;font-size:14px;font-weight:600;cursor:pointer" style-hover="border-color:#10B981;color:#047857">단계 추가</button>
+<button onClick="{{ openPickerNew }}" style="flex:1;height:46px;border-radius:16px;border:1px solid #D1FAE5;background:#ECFDF5;color:#047857;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4l2 2v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8l2-2z"></path><path d="M8 13h8"></path></svg>화장대에서 추가</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ analyzing }}" hint-placeholder-val="{{ false }}">
+<div style="padding:8px 20px 200px;display:flex;flex-direction:column;gap:12px">
+<div style="height:22px;width:40%;border-radius:8px;background:linear-gradient(90deg,#EEF2F6 25%,#F8FAFC 50%,#EEF2F6 75%);background-size:200% 100%;animation:smShimmer 1.1s linear infinite"></div>
+<div style="height:260px;border-radius:26px;background:linear-gradient(90deg,#EEF2F6 25%,#F8FAFC 50%,#EEF2F6 75%);background-size:200% 100%;animation:smShimmer 1.1s linear infinite"></div>
+<div style="height:96px;border-radius:26px;background:linear-gradient(90deg,#EEF2F6 25%,#F8FAFC 50%,#EEF2F6 75%);background-size:200% 100%;animation:smShimmer 1.1s linear infinite"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div style="height:140px;border-radius:24px;background:linear-gradient(90deg,#EEF2F6 25%,#F8FAFC 50%,#EEF2F6 75%);background-size:200% 100%;animation:smShimmer 1.1s linear infinite"></div>
+<div style="height:140px;border-radius:24px;background:linear-gradient(90deg,#EEF2F6 25%,#F8FAFC 50%,#EEF2F6 75%);background-size:200% 100%;animation:smShimmer 1.1s linear infinite"></div>
+</div>
+<div style="text-align:center;font-size:13px;color:#64748B;margin-top:6px">성분 조합을 분석하고 있어요…</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showResult }}" hint-placeholder-val="{{ false }}">
+<div style="padding:4px 20px 210px;display:flex;flex-direction:column;gap:12px;animation:smFade .45s cubic-bezier(.22,1,.36,1)">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+<button onClick="{{ backToInput }}" aria-label="뒤로" style="width:40px;height:40px;border-radius:14px;border:1px solid #F1F5F9;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0F172A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+<span style="font-size:16px;font-weight:700">루틴 분석 결과</span>
+<button onClick="{{ shareResult }}" aria-label="결과 공유" title="결과 공유" style="width:40px;height:40px;border-radius:14px;border:1px solid #F1F5F9;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0F172A"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"></path></svg></button>
+</div>
+
+<div class="sm-scroll" style="display:flex;gap:6px;overflow-x:auto;margin:0 -20px;padding:0 20px">
+<sc-for list="{{ resProducts }}" as="p" hint-placeholder-count="3">
+<div style="flex:none;display:flex;align-items:center;gap:7px;height:38px;padding:0 12px 0 6px;border-radius:999px;background:#fff;border:1px solid #F1F5F9;max-width:200px">
+<span style="flex:none;width:26px;height:26px;border-radius:50%;background:#0F172A;color:#fff;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ p.n }}</span>
+<span style="font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.short }}</span>
+</div>
+</sc-for>
+</div>
+
+<sc-if value="{{ pregWarn }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:10px;align-items:flex-start;background:#FFFBEB;border:1px solid #FDE68A;border-radius:20px;padding:14px 16px;color:#92400E;font-size:13.5px;line-height:1.5">
+<svg style="flex:none;margin-top:1px" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+<span>{{ warnText }}</span>
+</div>
+</sc-if>
+
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;box-shadow:0 14px 36px -24px rgba(15,23,42,.2);border-radius:28px;padding:20px 20px 22px;display:flex;flex-direction:column;align-items:center">
+<div style="align-self:stretch;display:flex;justify-content:space-between;align-items:center;gap:8px">
+<span style="font-size:15px;font-weight:600">루틴 전체 충돌 위험도</span>
+<span style="font-size:12px;color:#64748B">{{ pairCountText }}</span>
+</div>
+<div style="position:relative;width:240px;height:138px;margin-top:14px">
+<svg width="240" height="138" viewBox="0 0 220 126" style="display:block;overflow:visible">
+<path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="#F1F5F9" stroke-width="16" stroke-linecap="round"></path>
+<path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="{{ bandColor }}" stroke-width="16" stroke-linecap="round" stroke-dasharray="282.74" stroke-dashoffset="{{ gaugeOffset }}"></path>
+<circle cx="{{ knobX }}" cy="{{ knobY }}" r="6" fill="#fff" stroke="{{ bandColor }}" stroke-width="3.5"></circle>
+<line x1="82.2" y1="24.4" x2="84.6" y2="31.9" stroke="#CBD5E1" stroke-width="1.5"></line>
+<line x1="137.8" y1="24.4" x2="135.4" y2="31.9" stroke="#CBD5E1" stroke-width="1.5"></line>
+</svg>
+<div style="position:absolute;left:0;right:0;bottom:4px;display:flex;flex-direction:column;align-items:center">
+<div style="display:flex;align-items:baseline;gap:2px"><span style="font-size:52px;font-weight:700;letter-spacing:-0.05em;line-height:1;font-variant-numeric:tabular-nums">{{ pctText }}</span><span style="font-size:22px;font-weight:600;color:#64748B">%</span></div>
+</div>
+</div>
+<div style="width:240px;display:flex;justify-content:space-between;font-size:11px;color:#94A3B8;margin-top:2px;padding:0 6px"><span>0</span><span>100</span></div>
+<div style="margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:{{ bandBg }};color:{{ bandText }};font-size:13.5px;font-weight:600;text-align:center;line-height:1.35">
+<span style="flex:none;width:8px;height:8px;border-radius:50%;background:{{ bandColor }}"></span>{{ bandLabel }}</div>
+<sc-if value="{{ hasAdjust }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:12px;display:flex;align-items:center;gap:6px;font-size:12px;color:#64748B;text-align:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>내 피부 프로필 반영 · {{ adjustText }}</div>
+</sc-if>
+</div>
+
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;box-shadow:0 14px 36px -24px rgba(15,23,42,.2);padding:18px 20px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+<span style="font-size:15px;font-weight:600">자극 지수</span>
+<span style="font-size:14px;font-weight:700;color:{{ bandText }}">Level {{ level }} <span style="color:#94A3B8;font-weight:500">/ 5</span></span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
+<sc-for list="{{ segs }}" as="s" hint-placeholder-count="5">
+<div style="height:10px;border-radius:6px;background:{{ s.bg }};transition:background .25s"></div>
+</sc-for>
+</div>
+<div style="margin-top:10px;font-size:13.5px;color:#475569">{{ levelText }}</div>
+</div>
+
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;box-shadow:0 14px 36px -24px rgba(15,23,42,.2);padding:18px 20px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+<span style="font-size:15px;font-weight:600">제품별 충돌 맵</span>
+<span style="font-size:12px;color:#64748B">숫자 = 루틴 순서</span>
+</div>
+<div style="font-size:12.5px;color:#64748B;margin-bottom:14px">모든 제품을 1:1로 비교한 충돌 위험도(%)예요</div>
+<sc-for list="{{ matrixRows }}" as="row" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:{{ matrixCols }};gap:4px;margin-bottom:4px">
+<sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="3">
+<div style="aspect-ratio:1;max-height:48px;border-radius:10px;background:{{ c.bg }};color:{{ c.color }};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums">{{ c.t }}</div>
+</sc-for>
+</div>
+</sc-for>
+<div style="display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 4px;font-size:11.5px;color:#64748B">
+<span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:3px;background:#A7F3D0"></span>안심 0~30</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:3px;background:#FDE68A"></span>시간차 31~70</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:3px;background:#FECACA"></span>비추천 71~</span>
+</div>
+<div style="margin-top:12px;display:flex;flex-direction:column">
+<sc-for list="{{ pairRows }}" as="pr" hint-placeholder-count="2">
+<div style="padding:12px 0;border-top:1px solid #F1F5F9;display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="flex:none;display:flex;gap:3px"><span style="width:22px;height:22px;border-radius:50%;background:#0F172A;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ pr.ni }}</span><span style="width:22px;height:22px;border-radius:50%;background:#0F172A;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ pr.nj }}</span></span>
+<span style="flex:1;min-width:0;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ pr.la }} × {{ pr.lb }}</span>
+<span style="flex:none;height:24px;padding:0 9px;border-radius:999px;background:{{ pr.bg }};color:{{ pr.color }};font-size:12px;font-weight:700;display:flex;align-items:center">{{ pr.pct }}</span>
+</div>
+<div style="font-size:12px;color:{{ pr.color }};padding-left:52px;line-height:1.5">{{ pr.tagsText }}</div>
+</div>
+</sc-for>
+<sc-if value="{{ noClash }}" hint-placeholder-val="{{ false }}"><div style="padding:12px 0 0;border-top:1px solid #F1F5F9;font-size:13px;color:#047857;font-weight:600">충돌 위험이 있는 조합이 없어요</div></sc-if>
+</div>
+</div>
+
+<sc-if value="{{ hasAlt }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;box-shadow:0 14px 36px -24px rgba(15,23,42,.2);padding:18px 20px">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="height:22px;padding:0 8px;border-radius:999px;background:#ECFDF5;color:#047857;font-size:11px;font-weight:700;display:flex;align-items:center">대체 추천</span><span style="font-size:15px;font-weight:600">더 순한 조합으로 바꿔 보세요</span></div>
+<div style="font-size:12.5px;color:#64748B;margin-bottom:12px;line-height:1.5">{{ altTitle }}</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ altItems }}" as="al" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:16px;border:1px solid #F1F5F9;background:#F8FAFC">
+<div style="flex:none;width:40px;height:40px;border-radius:12px;background:repeating-linear-gradient(135deg,{{ al.tint }} 0 5px,#FFFFFF80 5px 10px)"></div>
+<div style="flex:1;min-width:0"><div style="font-size:11.5px;color:#64748B">{{ al.brand }}</div><div style="font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ al.name }}</div><div style="font-size:11.5px;color:#047857;font-weight:600;margin-top:1px">{{ al.note }}</div></div>
+<button onClick="{{ al.onSwap }}" style="flex:none;height:34px;padding:0 12px;border:none;border-radius:12px;background:#0F172A;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer">교체하기</button>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;box-shadow:0 14px 36px -24px rgba(15,23,42,.2);padding:18px 20px">
+<div style="font-size:15px;font-weight:600;margin-bottom:12px">핵심 성분 충돌 태그</div>
+<div style="display:flex;flex-wrap:wrap;gap:7px">
+<sc-for list="{{ tags }}" as="t" hint-placeholder-count="3">
+<span style="padding:7px 11px;border-radius:12px;background:{{ t.bg }};color:{{ t.color }};font-size:13px;font-weight:600">{{ t.t }}</span>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;box-shadow:0 14px 36px -24px rgba(15,23,42,.2);padding:18px 20px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+<div style="width:36px;height:36px;border-radius:12px;background:#FFFBEB;color:#D97706;display:flex;align-items:center;justify-content:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></div>
+<div><div style="font-size:12px;color:#64748B;font-weight:600">Morning Routine</div><div style="font-size:15px;font-weight:700">아침 권장 순서</div></div>
+</div>
+<sc-for list="{{ amList }}" as="it" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #F1F5F9">
+<span style="flex:none;width:22px;font-size:12px;font-weight:700;color:#94A3B8;text-align:center">{{ it.step }}</span>
+<span style="flex:1;min-width:0;font-size:14px;font-weight:600;color:{{ it.color }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.label }}</span>
+<span style="flex:none;height:22px;padding:0 8px;border-radius:999px;background:{{ it.catBg }};color:{{ it.catColor }};font-size:11px;font-weight:600;display:flex;align-items:center">{{ it.cat }}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="background:#0F172A;color:#fff;border-radius:26px;padding:18px 20px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+<div style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path></svg></div>
+<div style="flex:1"><div style="font-size:12px;color:#CBD5E1;font-weight:600">Night Routine</div><div style="font-size:15px;font-weight:700">저녁 권장 순서</div></div>
+<sc-if value="{{ pmSplit }}" hint-placeholder-val="{{ false }}"><span style="height:26px;padding:0 10px;border-radius:999px;background:#FEF2F2;color:#B91C1C;font-size:11.5px;font-weight:700;display:flex;align-items:center">격일 분리</span></sc-if>
+</div>
+<sc-for list="{{ pmGroups }}" as="g" hint-placeholder-count="1">
+<div style="margin-top:10px">
+<div style="font-size:12px;font-weight:700;color:#6EE7B7;margin-bottom:2px">{{ g.title }}</div>
+<sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid rgba(255,255,255,.08)">
+<span style="flex:none;width:22px;font-size:12px;font-weight:700;color:#64748B;text-align:center">{{ it.step }}</span>
+<span style="flex:1;min-width:0;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.label }}</span>
+<span style="flex:none;height:22px;padding:0 8px;border-radius:999px;background:rgba(255,255,255,.1);color:#E2E8F0;font-size:11px;font-weight:600;display:flex;align-items:center">{{ it.cat }}</span>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+<div style="background:#ECFDF5;border:1px solid #D1FAE5;border-radius:24px;padding:16px;display:flex;gap:12px;align-items:center">
+<div style="flex:none;width:36px;height:36px;border-radius:12px;background:#10B981;color:#fff;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"></path><path d="M15.1 14c.2-1 .7-1.7 1.4-2.5A4.6 4.6 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path></svg></div>
+<div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+<span style="font-size:12px;color:#047857;font-weight:700">Rule of Thumb</span>
+<span style="font-size:14.5px;font-weight:600;color:#064E3B;line-height:1.45">{{ tip }}</span>
+</div>
+</div>
+<sc-if value="{{ reordered }}" hint-placeholder-val="{{ false }}"><p style="margin:0 4px;font-size:12px;line-height:1.6;color:#64748B">입력한 순서와 달리, 묽은 제형 → 꾸덕한 제형 → 선크림 기준의 권장 순서로 정리했어요.</p></sc-if>
+<p style="margin:0 4px;font-size:11.5px;line-height:1.6;color:#94A3B8">본 결과는 성분 정보 기반의 참고용 가이드이며, 의학적 진단을 대체하지 않습니다.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ showVanity }}" hint-placeholder-val="{{ false }}">
+<div style="padding:8px 20px 190px;animation:smFade .4s cubic-bezier(.22,1,.36,1)">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px">
+<div>
+<h1 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-0.035em">내 화장대</h1>
+<div style="font-size:13.5px;color:#64748B;margin-top:4px">등록된 제품 {{ vanityCount }}개</div>
+</div>
+</div>
+<sc-if value="{{ hasCombos }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;font-weight:600;margin-bottom:10px">저장한 조합</div>
+<div class="sm-scroll" style="display:flex;gap:10px;overflow-x:auto;margin:0 -20px 20px;padding:0 20px 4px">
+<sc-for list="{{ combos }}" as="c" hint-placeholder-count="1">
+<button onClick="{{ c.onLoad }}" style="text-align:left;cursor:pointer;flex:none;width:210px;background:#fff;border:1px solid #F1F5F9;border-radius:22px;padding:14px;display:flex;gap:12px;align-items:center">
+<div style="flex:none;width:48px;height:48px;border-radius:16px;background:{{ c.bg }};color:{{ c.text }};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">{{ c.pct }}</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.a }}</span>
+<span style="font-size:12px;color:#64748B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.b }}</span>
+</div>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<div class="sm-scroll" style="display:flex;gap:8px;overflow-x:auto;margin:0 -20px 16px;padding:0 20px">
+<sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+<button onClick="{{ f.onClick }}" style="flex:none;height:38px;padding:0 16px;border-radius:999px;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};font-size:14px;font-weight:600;cursor:pointer;transition:all .2s">{{ f.label }}</button>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+<sc-for list="{{ products }}" as="p" hint-placeholder-count="4">
+<button onClick="{{ p.onOpen }}" style="text-align:left;border:1px solid #F1F5F9;background:#fff;border-radius:24px;padding:8px 8px 14px;cursor:pointer;display:flex;flex-direction:column;gap:0;box-shadow:0 12px 30px -22px rgba(15,23,42,.22);transition:transform .2s cubic-bezier(.22,1,.36,1);animation:smFade .4s cubic-bezier(.22,1,.36,1) both" style-active="transform:scale(.97)">
+<div style="position:relative;aspect-ratio:1 / .86;border-radius:18px;background:repeating-linear-gradient(135deg,{{ p.tint }} 0 9px,#FFFFFF80 9px 18px);display:flex;align-items:center;justify-content:center">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#64748B;letter-spacing:0.04em">product image</span>
+<span style="position:absolute;top:8px;left:8px;height:24px;padding:0 9px;border-radius:999px;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);font-size:11.5px;font-weight:600;color:#334155;display:flex;align-items:center">{{ p.cat }}</span>
+</div>
+<div style="padding:12px 6px 0;display:flex;flex-direction:column;gap:3px">
+<span style="font-size:12px;color:#64748B;font-weight:500">{{ p.brand }}</span>
+<span style="font-size:14px;font-weight:600;line-height:1.4;color:#0F172A;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:39px">{{ p.name }}</span>
+<span style="font-size:11.5px;color:#94A3B8">{{ p.date }} 등록</span>
+<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">
+<sc-for list="{{ p.keys }}" as="k" hint-placeholder-count="2">
+<span style="height:22px;padding:0 8px;border-radius:999px;background:#F1F5F9;color:#334155;font-size:11px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap">{{ k }}</span>
+</sc-for>
+</div>
+</div>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{ noProducts }}" hint-placeholder-val="{{ false }}">
+<div style="padding:48px 20px;text-align:center;color:#64748B;font-size:14px;line-height:1.6">이 카테고리에 등록된 제품이 없어요.<br>아래 + 버튼으로 추가해 보세요.</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ showProfile }}" hint-placeholder-val="{{ false }}">
+<div style="padding:8px 20px 150px;display:flex;flex-direction:column;gap:12px;animation:smFade .4s cubic-bezier(.22,1,.36,1)">
+<h1 style="margin:0 0 6px;font-size:26px;font-weight:700;letter-spacing:-0.035em">마이페이지</h1>
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;padding:18px;display:flex;align-items:center;gap:14px">
+<div style="width:60px;height:60px;border-radius:20px;background:#ECFDF5;color:#047857;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ initial }}</div>
+<div style="flex:1;min-width:0">
+<div style="font-size:18px;font-weight:700">{{ userName }}님</div>
+<div style="font-size:13px;color:#64748B;margin-top:3px">{{ methodText }}</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<button onClick="{{ goVanity }}" style="text-align:left;background:#fff;border:1px solid #F1F5F9;border-radius:22px;padding:16px;cursor:pointer"><div style="font-size:12.5px;color:#64748B">화장대 제품</div><div style="font-size:24px;font-weight:700;margin-top:4px">{{ vanityCount }}</div></button>
+<button onClick="{{ goVanity }}" style="text-align:left;background:#fff;border:1px solid #F1F5F9;border-radius:22px;padding:16px;cursor:pointer"><div style="font-size:12.5px;color:#64748B">저장한 조합</div><div style="font-size:24px;font-weight:700;margin-top:4px">{{ comboCount }}</div></button>
+</div>
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;padding:18px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font-size:15px;font-weight:600">내 피부 프로필</div><button onClick="{{ redoOnb }}" style="height:32px;padding:0 12px;border-radius:999px;border:1px solid #D1FAE5;background:#ECFDF5;color:#047857;font-size:12.5px;font-weight:600;cursor:pointer">다시 진단하기</button></div>
+<div style="font-size:12.5px;color:#64748B;margin:3px 0 6px">분석 시 자극도 보정에 사용돼요</div>
+<sc-for list="{{ profileRows }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-top:1px solid #F1F5F9;font-size:13.5px"><span style="flex:none;color:#64748B">{{ r.k }}</span><span style="font-weight:600;text-align:right">{{ r.v }}</span></div>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;padding:18px;display:flex;align-items:center;gap:14px">
+<div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600">임산부/수유부 주의 성분 알림</div><div style="font-size:12.5px;color:#64748B;margin-top:3px">레티노이드 등 감지 시 경고 표시</div></div>
+<button onClick="{{ togglePreg }}" aria-label="임산부 알림" style="flex:none;width:52px;height:32px;border:none;border-radius:999px;background:{{ pregTrack }};padding:3px;cursor:pointer;transition:background .25s">
+<div style="width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(15,23,42,.2);transform:translateX({{ pregKnob }});transition:transform .3s cubic-bezier(.34,1.56,.64,1)"></div>
+</button>
+</div>
+<div style="background:#fff;border:1px solid #F1F5F9;border-radius:26px;overflow:hidden">
+<button onClick="{{ soon }}" style="width:100%;height:56px;border:none;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:15px;color:#0F172A;cursor:pointer;border-bottom:1px solid #F1F5F9">알림 설정<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+<button onClick="{{ soon }}" style="width:100%;height:56px;border:none;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:15px;color:#0F172A;cursor:pointer;border-bottom:1px solid #F1F5F9">고객센터<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+<button onClick="{{ logout }}" style="width:100%;height:56px;border:none;background:#fff;display:flex;align-items:center;gap:10px;padding:0 18px;font-size:15px;color:#DC2626;cursor:pointer"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg>로그아웃</button>
+</div>
+<div style="text-align:center;font-size:11.5px;color:#94A3B8;margin-top:6px">SkinMatch v1.0.0</div>
+</div>
+</sc-if>
+</div>
+
+<sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(to top,#F8FAFC 55%,rgba(248,250,252,0));pointer-events:none;z-index:4"></div>
+<button onClick="{{ analyze }}" style="position:absolute;left:16px;right:16px;bottom:100px;z-index:5;height:60px;border:none;border-radius:20px;background:{{ ctaBg }};color:{{ ctaColor }};font-size:16.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:{{ ctaShadow }};transition:all .25s cubic-bezier(.22,1,.36,1)" style-active="transform:scale(.98)">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="{{ ctaIcon }}"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>{{ ctaText }}</button>
+</sc-if>
+
+<sc-if value="{{ showResult }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;bottom:0;height:230px;background:linear-gradient(to top,#F8FAFC 60%,rgba(248,250,252,0));pointer-events:none;z-index:4"></div>
+<div style="position:absolute;left:16px;right:16px;bottom:96px;z-index:5;display:flex;flex-direction:column;gap:4px">
+<button onClick="{{ saveCombo }}" style="height:58px;border:none;border-radius:20px;background:{{ saveBg }};color:{{ saveColor }};font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 14px 30px -12px rgba(15,23,42,.45);transition:all .25s" style-active="transform:scale(.98)">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="{{ saveFill }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>{{ saveText }}</button>
+<button onClick="{{ recheck }}" style="height:42px;border:none;background:none;color:#475569;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path></svg>루틴 수정해서 다시 검사</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ showVanity }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ openAdd }}" style="position:absolute;right:18px;bottom:100px;z-index:5;height:54px;padding:0 20px 0 16px;border:none;border-radius:999px;background:#0F172A;color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 14px 30px -10px rgba(15,23,42,.5);animation:smFade .4s cubic-bezier(.22,1,.36,1)" style-active="transform:scale(.96)">
+<span style="width:28px;height:28px;border-radius:50%;background:#10B981;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span>제품 직접 등록하기</button>
+</sc-if>
+
+<sc-if value="{{ navPill }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;left:16px;right:16px;bottom:18px;z-index:10;height:70px;border-radius:999px;background:rgba(255,255,255,.78);backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6);border:1px solid rgba(226,232,240,.9);box-shadow:0 18px 40px -16px rgba(15,23,42,.28);display:flex;align-items:center;padding:6px;gap:4px">
+<button onClick="{{ goAnalyzer }}" style="flex:1;height:100%;border:none;border-radius:999px;background:{{ navA.bg }};color:{{ navA.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1)">
+<svg width="21" height="21" viewBox="0 0 24 24" fill="{{ navA.fill }}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>분석</button>
+<button onClick="{{ goVanity }}" style="flex:1;height:100%;border:none;border-radius:999px;background:{{ navV.bg }};color:{{ navV.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1)">
+<svg width="21" height="21" viewBox="0 0 24 24" fill="{{ navV.fill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4l2 2v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8l2-2z"></path></svg>내 화장대</button>
+<button onClick="{{ goProfile }}" style="flex:1;height:100%;border:none;border-radius:999px;background:{{ navP.bg }};color:{{ navP.color }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1)">
+<svg width="21" height="21" viewBox="0 0 24 24" fill="{{ navP.fill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>마이페이지</button>
+</div>
+</sc-if>
+<sc-if value="{{ navBar }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:10;height:84px;padding-bottom:14px;background:rgba(255,255,255,.85);backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6);border-top:1px solid #F1F5F9;display:flex">
+<button onClick="{{ goAnalyzer }}" style="flex:1;border:none;background:none;color:{{ navA.barColor }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px;font-weight:600;cursor:pointer">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="{{ navA.fill }}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>분석</button>
+<button onClick="{{ goVanity }}" style="flex:1;border:none;background:none;color:{{ navV.barColor }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px;font-weight:600;cursor:pointer">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="{{ navV.fill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4l2 2v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8l2-2z"></path></svg>내 화장대</button>
+<button onClick="{{ goProfile }}" style="flex:1;border:none;background:none;color:{{ navP.barColor }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px;font-weight:600;cursor:pointer">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="{{ navP.fill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>마이페이지</button>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ showSheet }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:40;background:rgba(15,23,42,.36);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:smDim .25s ease;display:flex;flex-direction:column;justify-content:flex-end">
+<div onClick="{{ stop }}" class="sm-scroll" style="max-height:88%;overflow-y:auto;background:#fff;border-radius:30px 30px 0 0;padding:10px 20px 30px;animation:smSheet .42s cubic-bezier(.22,1.1,.36,1)">
+<div style="width:40px;height:5px;border-radius:5px;background:#E2E8F0;margin:0 auto 16px"></div>
+
+<sc-if value="{{ sheetPicker }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:18px;font-weight:700;margin-bottom:4px">내 화장대에서 불러오기</div>
+<div style="font-size:13px;color:#64748B;margin-bottom:14px">{{ pickerTargetText }}</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ pickList }}" as="p" hint-placeholder-count="4">
+<button onClick="{{ p.onPick }}" style="display:flex;align-items:center;gap:12px;text-align:left;padding:10px;border:1px solid #F1F5F9;background:#fff;border-radius:18px;cursor:pointer" style-hover="background:#F8FAFC">
+<div style="flex:none;width:48px;height:48px;border-radius:14px;background:repeating-linear-gradient(135deg,{{ p.tint }} 0 6px,#FFFFFF80 6px 12px)"></div>
+<div style="flex:1;min-width:0"><div style="font-size:12px;color:#64748B">{{ p.brand }} · {{ p.cat }}</div><div style="font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">{{ p.name }}</div></div>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ sheetDetail }}" hint-placeholder-val="{{ false }}">
+<div style="height:170px;border-radius:22px;background:repeating-linear-gradient(135deg,{{ dp.tint }} 0 10px,#FFFFFF80 10px 20px);display:flex;align-items:center;justify-content:center;margin-bottom:16px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#64748B">product image</span></div>
+<div style="font-size:13px;color:#64748B">{{ dp.brand }} · {{ dp.cat }}</div>
+<div style="font-size:20px;font-weight:700;margin:4px 0 4px;letter-spacing:-0.03em">{{ dp.name }}</div>
+<div style="font-size:12.5px;color:#94A3B8;margin-bottom:16px">{{ dp.date }} 등록</div>
+<div style="font-size:14px;font-weight:600;margin-bottom:8px">주요 핵심 성분</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
+<sc-for list="{{ dp.ing }}" as="k" hint-placeholder-count="3">
+<span style="height:28px;padding:0 11px;border-radius:999px;background:#F1F5F9;color:#334155;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center">{{ k }}</span>
+</sc-for>
+</div>
+<button onClick="{{ loadDetail }}" style="width:100%;height:54px;border:none;border-radius:18px;background:#0F172A;color:#fff;font-size:15px;font-weight:600;cursor:pointer">분석 루틴에 추가하기</button>
+<button onClick="{{ deleteDetail }}" style="width:100%;height:46px;margin-top:6px;border:none;background:none;color:#DC2626;font-size:14px;font-weight:500;cursor:pointer">화장대에서 삭제</button>
+</sc-if>
+
+<sc-if value="{{ sheetIng }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="height:24px;padding:0 9px;border-radius:999px;background:{{ ingKindBg }};color:{{ ingKindColor }};font-size:11.5px;font-weight:700;display:flex;align-items:center">{{ ingKind }}</span><span style="font-size:12px;color:#64748B">성분 사전</span></div>
+<div style="font-size:22px;font-weight:700;letter-spacing:-0.03em;margin-bottom:14px">{{ ingName }}</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="padding:14px 16px;border-radius:18px;background:#F8FAFC"><div style="font-size:12px;font-weight:700;color:#64748B;margin-bottom:4px">주요 효능</div><div style="font-size:14.5px;line-height:1.55">{{ ingDesc }}</div></div>
+<div style="padding:14px 16px;border-radius:18px;background:#FFFBEB"><div style="font-size:12px;font-weight:700;color:#B45309;margin-bottom:4px">사용 팁 · 주의</div><div style="font-size:14px;line-height:1.55;color:#78350F">{{ ingTip }}</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div style="padding:14px;border-radius:18px;border:1px solid #D1FAE5;background:#ECFDF5"><div style="font-size:12px;font-weight:700;color:#047857;margin-bottom:8px">함께 쓰면 좋아요</div><div style="display:flex;flex-direction:column;gap:4px"><sc-for list="{{ ingGood }}" as="g" hint-placeholder-count="2"><span style="font-size:13px;color:#064E3B;font-weight:500">{{ g }}</span></sc-for></div></div>
+<div style="padding:14px;border-radius:18px;border:1px solid #FECACA;background:#FEF2F2"><div style="font-size:12px;font-weight:700;color:#B91C1C;margin-bottom:8px">동시 사용 주의</div><div style="display:flex;flex-direction:column;gap:4px"><sc-for list="{{ ingAvoid }}" as="g" hint-placeholder-count="2"><span style="font-size:13px;color:#7F1D1D;font-weight:500">{{ g }}</span></sc-for></div></div>
+</div>
+</div>
+<button onClick="{{ closeSheet }}" style="width:100%;height:52px;margin-top:16px;border:none;border-radius:18px;background:#0F172A;color:#fff;font-size:15px;font-weight:600;cursor:pointer">확인</button>
+</sc-if>
+
+<sc-if value="{{ sheetScan }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:18px;font-weight:700;margin-bottom:4px">바코드로 제품 찾기</div>
+<div style="font-size:13px;color:#64748B;margin-bottom:14px">제품 뒷면의 바코드를 네모 안에 맞춰 주세요</div>
+<div style="position:relative;height:230px;border-radius:22px;background:#0F172A;overflow:hidden;display:flex;align-items:center;justify-content:center">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#64748B">camera preview</span>
+<div style="position:absolute;left:16%;right:16%;top:14%;bottom:14%;border-radius:14px;border:2px solid rgba(255,255,255,.18)"></div>
+<div style="position:absolute;left:16%;right:16%;height:2px;background:#34D399;box-shadow:0 0 12px #34D399;animation:smScan 2.2s ease-in-out infinite"></div>
+</div>
+<button onClick="{{ scanSample }}" style="width:100%;height:54px;margin-top:14px;border:none;border-radius:18px;background:#0F172A;color:#fff;font-size:15px;font-weight:600;cursor:pointer">샘플 바코드로 스캔해 보기</button>
+<div style="text-align:center;font-size:11.5px;color:#94A3B8;margin-top:10px">목업 · 실제 앱에서는 카메라 권한 요청 후 스캔돼요</div>
+</sc-if>
+
+<sc-if value="{{ sheetAdd }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:18px;font-weight:700;margin-bottom:16px">제품 직접 등록하기</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<input value="{{ np.brand }}" onChange="{{ onNpBrand }}" placeholder="브랜드명" style="height:52px;border:1px solid #E2E8F0;border-radius:16px;padding:0 16px;font-size:15px;outline:none;background:#fff;color:#0F172A">
+<input value="{{ np.name }}" onChange="{{ onNpName }}" placeholder="제품명 (필수)" style="height:52px;border:1px solid #E2E8F0;border-radius:16px;padding:0 16px;font-size:15px;outline:none;background:#fff;color:#0F172A">
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:4px 0">
+<sc-for list="{{ npCats }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.onClick }}" style="height:36px;padding:0 14px;border-radius:999px;border:1.5px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-size:13.5px;font-weight:600;cursor:pointer">{{ c.label }}</button>
+</sc-for>
+</div>
+<textarea value="{{ np.ing }}" onChange="{{ onNpIng }}" rows="3" placeholder="주요 성분을 쉼표로 구분해 입력 (필수)&#10;예) 나이아신아마이드, 판테놀" style="border:1px solid #E2E8F0;border-radius:16px;padding:14px 16px;font-size:15px;line-height:1.5;outline:none;resize:none;background:#fff;color:#0F172A"></textarea>
+<button onClick="{{ addProduct }}" style="height:56px;margin-top:6px;border:none;border-radius:18px;background:{{ addBg }};color:{{ addColor }};font-size:16px;font-weight:700;cursor:pointer;transition:all .2s">화장대에 등록</button>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;top:54px;left:50%;transform:translateX(-50%);z-index:60;max-width:calc(100% - 40px);padding:12px 18px;border-radius:999px;background:rgba(15,23,42,.92);backdrop-filter:blur(10px);color:#fff;font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;white-space:nowrap;box-shadow:0 12px 30px -10px rgba(15,23,42,.5);animation:smToast .35s cubic-bezier(.22,1,.36,1)">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>{{ toast }}</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auth&quot;,&quot;onboarding&quot;,&quot;analyzer&quot;,&quot;result&quot;,&quot;vanity&quot;,&quot;profile&quot;],&quot;default&quot;:&quot;auth&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype state&quot;},&quot;navStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pill&quot;,&quot;bar&quot;],&quot;default&quot;:&quot;pill&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Navigation&quot;},&quot;userName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;정묵&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype state&quot;}}">
+class Component extends DCLogic {
+  static SAMPLE_A = '무드랩 레티놀 0.1% 나이트 세럼\n레티놀 0.1%, 세라마이드NP, 스쿠알란, 토코페롤';
+  static SAMPLE_B = '클리어데이 AHA 7% 브라이트닝 토너\n글리콜릭애씨드 7%, 판테놀, 알란토인';
+  static CAT_ORDER = { '토너': 1, '에센스·앰플': 2, '세럼': 3, '아이크림': 4, '기타': 4.5, '크림': 5, '선크림': 6, '메이크업': 7 };
+  static PH = { '토너': '예) 글리콜릭애씨드 7%, 판테놀', '에센스·앰플': '예) 아스코빅애씨드 15%, 비타민E', '세럼': '예) 레티놀 0.1%, 세라마이드NP', '아이크림': '예) 펩타이드, 카페인', '크림': '예) 병풀추출물, 세라마이드NP', '선크림': '예) 징크옥사이드, 나이아신아마이드', '메이크업': '예) 쿠션, 톤업크림 성분', '기타': '제품명 또는 전성분을 붙여넣어 주세요' };
+  static SAMPLE_STEPS = [
+    ['토너', '클리어데이 AHA 7% 브라이트닝 토너\n글리콜릭애씨드 7%, 판테놀, 알란토인'],
+    ['에센스·앰플', '라보에센 퓨어 비타민C 15 앰플\n아스코빅애씨드 15%, 비타민E, 페룰릭애씨드'],
+    ['세럼', '무드랩 레티놀 0.1% 나이트 세럼\n레티놀 0.1%, 세라마이드NP, 스쿠알란'],
+    ['크림', '그린노트 시카 배리어 리페어 크림\n병풀추출물, 세라마이드NP, 마데카소사이드'],
+    ['선크림', '선리 마일드 무기자차 선크림 SPF50+\n징크옥사이드, 나이아신아마이드']
+  ];
+  static CATALOG = [
+    { id: 'p1', brand: '무드랩', name: '레티놀 0.1% 나이트 세럼', cat: '세럼', ing: ['정제수', '스쿠알란', '레티놀 0.1%', '세라마이드NP', '토코페롤', '글리세린'] },
+    { id: 'p2', brand: '무드랩', name: '레티날 0.05% 리뉴얼 크림', cat: '크림', ing: ['정제수', '레티날 0.05%', '세라마이드NP', '판테놀', '시어버터'] },
+    { id: 'p3', brand: '클리어데이', name: 'AHA 7% 브라이트닝 토너', cat: '토너', ing: ['정제수', '글리콜릭애씨드 7%', '판테놀', '알란토인', '부틸렌글라이콜'] },
+    { id: 'p4', brand: '클리어데이', name: 'BHA 2% 포어 클리어 토너', cat: '토너', ing: ['정제수', '살리실산 2%', '녹차추출물', '판테놀'] },
+    { id: 'p5', brand: '클리어데이', name: 'PHA 5% 데일리 필링 패드', cat: '토너', ing: ['정제수', '글루코노락톤 5%', '판테놀', '알로에베라잎즙'] },
+    { id: 'p6', brand: '라보에센', name: '퓨어 비타민C 15 앰플', cat: '에센스·앰플', ing: ['정제수', '아스코빅애씨드 15%', '비타민E', '페룰릭애씨드'] },
+    { id: 'p7', brand: '라보에센', name: '나이아신아마이드 10 세럼', cat: '세럼', ing: ['정제수', '나이아신아마이드 10%', '징크PCA', '글리세린'] },
+    { id: 'p8', brand: '라보에센', name: '비타민C 브라이트닝 토너', cat: '토너', ing: ['정제수', '아스코빅애씨드 5%', '나이아신아마이드', '베타인'] },
+    { id: 'p9', brand: '그린노트', name: '시카 배리어 리페어 크림', cat: '크림', ing: ['정제수', '병풀추출물', '세라마이드NP', '마데카소사이드', '판테놀'] },
+    { id: 'p10', brand: '그린노트', name: '병풀 진정 토너', cat: '토너', ing: ['병풀추출물 70%', '마데카소사이드', '판테놀', '알란토인'] },
+    { id: 'p11', brand: '워터풀', name: '히알루론 딥 수분 토너', cat: '토너', ing: ['정제수', '히알루론산', '판테놀', '베타인'] },
+    { id: 'p12', brand: '워터풀', name: '히알루론 수분 앰플', cat: '에센스·앰플', ing: ['정제수', '히알루론산', '트레할로스', '베타인'] },
+    { id: 'p13', brand: '바리에', name: '세라마이드 장벽 수분크림', cat: '크림', ing: ['정제수', '세라마이드NP', '콜레스테롤', '스쿠알란'] },
+    { id: 'p14', brand: '바리에', name: '판테놀 5% 리페어 세럼', cat: '세럼', ing: ['정제수', '판테놀 5%', '마데카소사이드', '글리세린'] },
+    { id: 'p15', brand: '선리', name: '마일드 무기자차 선크림 SPF50+', cat: '선크림', ing: ['정제수', '징크옥사이드', '나이아신아마이드', '알로에베라'] },
+    { id: 'p16', brand: '선리', name: '워터리 선에센스 SPF50+ PA++++', cat: '선크림', ing: ['정제수', '에틸헥실메톡시신나메이트', '히알루론산', '글리세린'] },
+    { id: 'p17', brand: '픽스온', name: '톤업 커버 쿠션 SPF35', cat: '메이크업', ing: ['티타늄디옥사이드', '나이아신아마이드', '다이메티콘'] },
+    { id: 'p18', brand: '아크랩', name: '벤조일 2.5% 스팟 젤', cat: '기타', ing: ['정제수', '벤조일퍼옥사이드 2.5%', '글리세린'] },
+    { id: 'p19', brand: '유스랩', name: '구리펩타이드 탄력 세럼', cat: '세럼', ing: ['정제수', '구리펩타이드', '아데노신', '히알루론산'] },
+    { id: 'p20', brand: '아이브라이트', name: '펩타이드 카페인 아이크림', cat: '아이크림', ing: ['정제수', '펩타이드', '카페인', '세라마이드NP'] }
+  ];
+  static QUICK = { '토너': ['AHA 토너', '병풀 토너'], '에센스·앰플': ['비타민C 앰플', '히알루론 앰플'], '세럼': ['레티놀 세럼', '나이아신 세럼'], '아이크림': ['아이크림'], '크림': ['시카 크림', '세라마이드'], '선크림': ['무기자차', '선에센스'], '메이크업': ['쿠션'], '기타': ['스팟 젤'] };
+  // TODO(API): 실제 DB 연동 시 이 함수만 교체 — GET /products/search?q=&cat= → Product[]
+  static searchCatalog(q) {
+    const norm = s => s.replace(/\s/g, '').toLowerCase();
+    const toks = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (!toks.length) return [];
+    return Component.CATALOG.map(p => {
+      const nm = norm(p.brand + p.name), hay = nm + norm(p.cat + p.ing.join(''));
+      if (!toks.every(t => hay.includes(norm(t)))) return null;
+      return { p, score: toks.filter(t => nm.includes(norm(t))).length };
+    }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 5).map(x => x.p);
+  }
+  static INFO = {
+    retinol: ['주의 필요', '피부 재생 촉진, 주름·모공 탄력 개선', '저녁에만, 주 2~3회 소량부터 시작하세요. 초기 건조·각질은 일시적일 수 있어요.', ['세라마이드', '판테놀', '히알루론산'], ['AHA · BHA', '벤조일퍼옥사이드', '고농도 비타민C']],
+    aha: ['주의 필요', '각질 제거, 피부결·톤 개선', '저녁 사용을 권장하고, 다음 날 선크림은 필수예요.', ['히알루론산', '판테놀'], ['레티놀', 'BHA 동시 사용', '비타민C']],
+    bha: ['주의 필요', '모공 속 피지·블랙헤드 케어, 트러블 완화', '건조해질 수 있어 보습을 충분히 해 주세요.', ['나이아신아마이드', '시카'], ['레티놀', 'AHA 동시 사용']],
+    pha: ['주의 필요', '순한 각질 케어, 민감 피부용 필링', '자극은 적지만 레티놀과는 시간차를 두세요.', ['히알루론산', '세라마이드'], ['레티놀']],
+    vitc: ['주의 필요', '미백, 항산화, 칙칙함 개선', '아침에 바르고 선크림으로 마무리하세요. 갈색으로 변하면 산화된 거예요.', ['비타민E', '페룰릭애씨드', '선크림'], ['레티놀', 'AHA · BHA', '구리펩타이드']],
+    bpo: ['주의 필요', '여드름균 살균, 화농성 트러블 케어', '트러블 부위에만 국소 사용하세요. 섬유 탈색에 주의하세요.', ['보습 크림'], ['레티놀', '비타민C']],
+    niacin: ['대체로 안심', '피지 조절, 미백, 장벽 강화', '대부분의 성분과 잘 맞아요. 고농도는 일시적 홍조가 생길 수 있어요.', ['히알루론산', '세라마이드', 'BHA'], ['고농도 비타민C (민감 시)']],
+    copper: ['주의 필요', '탄력 개선, 피부 재생', '산성 성분과 섞이면 효과가 떨어져요.', ['히알루론산', '펩타이드'], ['비타민C', 'AHA · BHA']],
+    ceramide: ['안심 성분', '피부 장벽 강화, 수분 유지', '모든 루틴에 안전하게 더할 수 있어요.', ['레티놀', 'AHA', '판테놀'], ['특별히 없음']],
+    ha: ['안심 성분', '즉각적인 수분 공급', '건조한 환경에선 크림으로 덮어 수분을 가둬 주세요.', ['세라마이드', '비타민C'], ['특별히 없음']],
+    panthenol: ['안심 성분', '진정, 장벽 회복', '자극 성분 사용 후 진정 단계로 좋아요.', ['레티놀', 'AHA · BHA'], ['특별히 없음']],
+    cica: ['안심 성분', '진정, 붉은기 완화', '예민해진 날 단독 사용해도 좋아요.', ['세라마이드', '판테놀'], ['특별히 없음']],
+    uvf: ['안심 성분', '자외선 차단', '2~3시간마다 덧바르고, 외출 15분 전에 발라 주세요.', ['비타민C', '나이아신아마이드'], ['특별히 없음']]
+  };
+  static uid = 0;
+  static mk(cat, text, product) { Component.uid += 1; return { id: 's' + Component.uid, cat, text: text || '', product: product || null, query: '', searching: false, results: [], manual: false }; }
+  static ptext(p) { return p.brand + ' ' + p.name + '\n' + p.ing.join(', '); }
+  static sample() { return ['p3', 'p6', 'p1', 'p9', 'p15'].map(id => { const p = Component.CATALOG.find(x => x.id === id); return Component.mk(p.cat, Component.ptext(p), p); }); }
+  static SKIN = ['건성', '지성', '복합성', '민감성/홍조', '여드름성', '장벽손상'];
+  static CATS = ['전체', '토너', '세럼', '크림', '선크림'];
+  static TINT = { '토너': '#DDF5EA', '세럼': '#FDEBD6', '크림': '#E0EEF8', '선크림': '#FBF3C9' };
+  static ACTIVE = ['retinol', 'aha', 'bha', 'pha', 'vitc', 'bpo', 'niacin', 'copper'];
+  static SOOTHE = ['ceramide', 'ha', 'panthenol', 'cica'];
+  static ING = [
+    { k: 'retinol', n: '레티놀', re: /레티놀|레티날|레티노이드|트레티노인|retinol|retinal|retinoid|tretinoin/ },
+    { k: 'aha', n: 'AHA', re: /\baha\b|글리콜릭|글라이콜릭|락틱|만델릭|glycolic|lactic|mandelic/ },
+    { k: 'bha', n: 'BHA', re: /\bbha\b|살리실|salicylic/ },
+    { k: 'pha', n: 'PHA', re: /\bpha\b|글루코노락톤|락토바이오닉|gluconolactone/ },
+    { k: 'vitc', n: '비타민C', re: /비타민\s?c|아스코빅|아스코르빅|ascorbic|vitamin\s?c/ },
+    { k: 'bpo', n: '벤조일퍼옥사이드', re: /벤조일|benzoyl/ },
+    { k: 'niacin', n: '나이아신아마이드', re: /나이아신|niacinamide/ },
+    { k: 'copper', n: '구리펩타이드', re: /구리\s?펩타이드|copper\s?peptide/ },
+    { k: 'ceramide', n: '세라마이드', re: /세라마이드|ceramide/ },
+    { k: 'ha', n: '히알루론산', re: /히알루론|hyaluron/ },
+    { k: 'panthenol', n: '판테놀', re: /판테놀|panthenol/ },
+    { k: 'cica', n: '시카', re: /시카|병풀|센텔라|마데카|cica|centella/ },
+    { k: 'uvf', n: '자외선 차단', re: /징크\s?옥사이드|티타늄\s?디옥사이드|zinc\s?oxide|titanium\s?dioxide|spf\s?\d/ }
+  ];
+  static PAIRS = [
+    { x: 'retinol', y: 'aha', w: 72, tags: ['#레티놀_AHA_산성충돌', '#각질박리_과다', '#피부장벽_손상위험'] },
+    { x: 'retinol', y: 'bha', w: 62, tags: ['#레티놀_BHA_과자극', '#피부장벽_손상위험'] },
+    { x: 'retinol', y: 'bpo', w: 66, tags: ['#레티놀_벤조일_산화불활성', '#건조_자극'] },
+    { x: 'retinol', y: 'vitc', w: 38, tags: ['#레티놀_비타민C_pH충돌'] },
+    { x: 'retinol', y: 'pha', w: 34, tags: ['#레티놀_PHA_각질자극'] },
+    { x: 'aha', y: 'bha', w: 44, tags: ['#이중산_각질박리_과다'] },
+    { x: 'aha', y: 'vitc', w: 30, tags: ['#저pH_중첩자극'] },
+    { x: 'bha', y: 'vitc', w: 28, tags: ['#저pH_중첩자극'] },
+    { x: 'vitc', y: 'bpo', w: 34, tags: ['#비타민C_산화'] },
+    { x: 'vitc', y: 'copper', w: 26, tags: ['#비타민C_구리펩타이드_불활성'] },
+    { x: 'vitc', y: 'niacin', w: 10, tags: ['#고농도시_홍조가능'], caution: true },
+    { x: 'retinol', y: 'retinol', w: 32, tags: ['#레티노이드_중복'] },
+    { x: 'aha', y: 'aha', w: 22, tags: ['#산성분_중복'] }
+  ];
+  static VANITY = [
+    { id: 1, brand: '무드랩', name: '레티놀 0.1% 나이트 세럼', cat: '세럼', date: '2026.09.21', ing: ['레티놀 0.1%', '세라마이드NP', '스쿠알란', '토코페롤'] },
+    { id: 2, brand: '클리어데이', name: 'AHA 7% 브라이트닝 토너', cat: '토너', date: '2026.09.18', ing: ['글리콜릭애씨드 7%', '판테놀', '알란토인'] },
+    { id: 3, brand: '그린노트', name: '시카 배리어 리페어 크림', cat: '크림', date: '2026.09.12', ing: ['병풀추출물', '세라마이드NP', '마데카소사이드', '판테놀'] },
+    { id: 4, brand: '선리', name: '마일드 무기자차 선크림 SPF50+', cat: '선크림', date: '2026.09.05', ing: ['징크옥사이드', '나이아신아마이드', '알로에베라'] },
+    { id: 5, brand: '라보에센', name: '퓨어 비타민C 15 세럼', cat: '세럼', date: '2026.08.29', ing: ['아스코빅애씨드 15%', '비타민E', '페룰릭애씨드'] },
+    { id: 6, brand: '워터풀', name: '히알루론 딥 수분 토너', cat: '토너', date: '2026.08.17', ing: ['히알루론산', '판테놀', '베타인'] },
+    { id: 7, brand: '바리에', name: '세라마이드 장벽 수분크림', cat: '크림', date: '2026.08.02', ing: ['세라마이드NP', '콜레스테롤', '스쿠알란'] },
+    { id: 8, brand: '클리어데이', name: 'BHA 2% 포어 클리어 토너', cat: '토너', date: '2026.07.24', ing: ['살리실산 2%', '녹차추출물', '판테놀'] }
+  ];
+
+  static BASES = [
+    { k: '건성', d: '세안 후 당기고, 오후에도 각질이 일어나요' },
+    { k: '지성', d: 'T존과 볼 모두 번들거리고 모공이 눈에 띄어요' },
+    { k: '복합성', d: 'T존은 번들거리고, 볼은 건조하거나 편안해요' },
+    { k: '중성', d: '유수분 균형이 좋아 특별한 불편이 적어요' }
+  ];
+  static QUIZ = [{ t: '전체적으로 당겨요', k: '건성' }, { t: '전체가 번들거려요', k: '지성' }, { t: 'T존만 번들거려요', k: '복합성' }, { t: '편안하고 촉촉해요', k: '중성' }];
+  static CONCERNS = [
+    { k: '민감성/홍조', d: '쉽게 붉어지고 화끈거려요' },
+    { k: '여드름·트러블', d: '좁쌀·화농성 트러블이 자주 나요' },
+    { k: '장벽손상', d: '평소 쓰던 제품도 따가울 때가 있어요' },
+    { k: '색소침착·잡티', d: '트러블 자국, 기미가 고민이에요' },
+    { k: '모공·피지', d: '피지가 많고 모공이 넓어 보여요' },
+    { k: '주름·탄력', d: '잔주름, 탄력 저하가 고민이에요' }
+  ];
+  static SENS = [
+    { t: '거의 없음', d: '대부분의 제품을 문제없이 사용해요.' },
+    { t: '가끔', d: '고농도 액티브 성분에서만 가끔 반응이 있어요.' },
+    { t: '보통', d: '새 제품은 테스트 후 사용하는 편이에요.' },
+    { t: '자주', d: '새 제품에서 따가움·붉어짐을 자주 느껴요. 자극도를 높여 보정해요.' },
+    { t: '거의 항상', d: '대부분의 새 제품에 반응해요. 자극도를 높여 보정해요.' }
+  ];
+  static HISTORY = [
+    { k: 'acid', s: '산성분 따가움', t: 'AHA·BHA 등 산성분에 따가움을 느낀 적 있어요' },
+    { k: 'noRetinol', s: '레티놀 첫 사용', t: '레티놀을 아직 써본 적 없어요' },
+    { k: 'procedure', s: '최근 시술', t: '2주 이내 레이저·필링 시술을 받았어요' },
+    { k: 'rx', s: '처방약 사용', t: '피부과 처방 연고·약을 사용 중이에요' }
+  ];
+  scrollRef = React.createRef();
+  onbRef = React.createRef();
+  state = {
+    loggedIn: false, onboarded: false, tab: 'analyzer', method: 'kakao',
+    steps: [Component.mk('토너'), Component.mk('크림')], analyzing: false, result: null, pct: 0, saved: false,
+    combos: [], vanity: Component.VANITY.slice(), filter: '전체',
+    skin: [], preg: false, onbStep: 0, baseType: null, concerns: [], sens: 0, history: [], quizOpen: false, quizAns: null, recent: [], ingKey: null, scanTarget: null,
+    authMode: 'login', email: '', pw: '', focus: null, authErr: '', authLoading: false,
+    sheet: null, pickerTarget: 'a', detailId: null, toast: '',
+    np: { brand: '', name: '', cat: '세럼', ing: '' }
+  };
+
+  componentDidMount() { this.applyStart(this.props.startScreen ?? 'auth'); }
+  componentDidUpdate(pp) { if (pp.startScreen !== this.props.startScreen) this.applyStart(this.props.startScreen ?? 'auth'); }
+  componentWillUnmount() { Object.values(this.searchT || {}).forEach(clearTimeout); clearTimeout(this.tA); clearTimeout(this.tB); clearTimeout(this.tT); cancelAnimationFrame(this.raf); }
+
+  applyStart(s) {
+    const base = { analyzing: false, result: null, sheet: null };
+    if (s === 'auth') this.setState({ ...base, loggedIn: false, onboarded: false });
+    else if (s === 'onboarding') this.setState({ ...base, loggedIn: true, onboarded: false });
+    else if (s === 'result') this.setState({ ...base, loggedIn: true, onboarded: true, tab: 'analyzer', steps: Component.sample() }, () => this.finishAnalysis());
+    else this.setState({ ...base, loggedIn: true, onboarded: true, tab: s });
+  }
+
+  flash(msg) { clearTimeout(this.tT); this.setState({ toast: msg }); this.tT = setTimeout(() => this.setState({ toast: '' }), 2200); }
+  scrollTop() { const el = this.scrollRef.current; if (el) el.scrollTop = 0; }
+  setTab(t) { this.setState({ tab: t }, () => this.scrollTop()); }
+
+  detect(txt) { const t = (txt || '').toLowerCase(); return Component.ING.filter(i => i.re.test(t)).map(i => i.k); }
+  nameOf(k) { return (Component.ING.find(i => i.k === k) || {}).n || k; }
+  labelOf(txt, fb) {
+    const first = (txt || '').trim().split('\n')[0].trim();
+    if (!first || (first.includes(',') && first.split(',').length > 2)) return fb;
+    return first.length > 22 ? first.slice(0, 21) + '…' : first;
+  }
+
+  pairEval(A, B) {
+    const hits = Component.PAIRS.filter(p => (A.includes(p.x) && B.includes(p.y)) || (A.includes(p.y) && B.includes(p.x)));
+    const soothe = Component.SOOTHE.filter(k => A.includes(k) || B.includes(k)).length;
+    let risk;
+    if (hits.length) {
+      const ws = hits.map(h => h.w).sort((x, y) => y - x);
+      risk = 12 + ws[0] + ws.slice(1).reduce((s, w) => s + w * 0.3, 0) - Math.min(soothe * 5, 10);
+    } else risk = 4 + Component.ACTIVE.filter(k => A.includes(k) || B.includes(k)).length * 4 - soothe * 2;
+    return { risk: Math.round(Math.max(2, Math.min(95, risk))), hits };
+  }
+  compute(steps) {
+    const st = this.state, C = Component, adjust = [];
+    const acids = ['aha', 'bha', 'pha'], pmKeys = ['retinol', 'aha', 'bha', 'pha', 'bpo'];
+    const P = steps.filter(x => x.text.trim()).map((x, i) => ({ n: i + 1, cat: x.cat, label: this.labelOf(x.text, x.cat), keys: this.detect(x.text) }));
+    const all = [...new Set(P.flatMap(p => p.keys))];
+    const pairs = [];
+    for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) pairs.push({ i, j, ...this.pairEval(P[i].keys, P[j].keys) });
+    const sorted = [...pairs].sort((x, y) => y.risk - x.risk);
+    const top = sorted.length ? sorted[0].risk : 0;
+    const anyHit = pairs.some(p => p.hits.length);
+    let risk = top + sorted.slice(1).filter(p => p.risk > 30).reduce((s, p) => s + p.risk * 0.12, 0);
+    const activeProducts = P.filter(p => p.keys.some(k => pmKeys.includes(k) || k === 'vitc')).length;
+    if (activeProducts >= 3) risk += 5;
+    if (anyHit) {
+      if (st.concerns.includes('민감성/홍조') || st.concerns.includes('장벽손상') || st.sens >= 4) { risk += 8; adjust.push('민감 피부 +8'); }
+      if (st.baseType === '지성') { risk -= 3; adjust.push('지성 -3'); }
+      if (st.baseType === '건성') { risk += 2; adjust.push('건성 +2'); }
+      const allHits = pairs.flatMap(p => p.hits);
+      if (st.history.includes('acid') && allHits.some(h => acids.includes(h.x) || acids.includes(h.y))) { risk += 5; adjust.push('산성분 자극 이력 +5'); }
+      if (st.history.includes('noRetinol') && allHits.some(h => h.x === 'retinol')) { risk += 5; adjust.push('레티놀 첫 사용 +5'); }
+    }
+    if (st.history.includes('procedure') && all.some(k => C.ACTIVE.includes(k))) { risk += 6; adjust.push('시술 후 회복기 +6'); }
+    risk = Math.round(Math.max(3, Math.min(97, risk)));
+    const band = risk <= 30 ? 'low' : risk <= 70 ? 'mid' : 'high';
+
+    const tags = [], seen = new Set();
+    sorted.forEach(p => p.hits.forEach(h => h.tags.forEach(t => { if (!seen.has(t)) { seen.add(t); tags.push({ t, kind: h.caution ? 'caution' : 'clash' }); } })));
+    if (activeProducts >= 3) tags.push({ t: '#액티브_과다_레이어링', kind: 'caution' });
+    const hasSun = P.some(p => p.cat === '선크림' || p.keys.includes('uvf'));
+    if (!hasSun && all.some(k => ['retinol', 'aha', 'bha', 'pha', 'vitc'].includes(k))) tags.push({ t: '#선크림_누락_광민감', kind: 'caution' });
+    if (C.SOOTHE.some(k => all.includes(k))) tags.push({ t: '#보습_시너지', kind: 'good' });
+    if (all.includes('ceramide') || all.includes('cica')) tags.push({ t: '#피부장벽_강화', kind: 'good' });
+    if (!tags.length) tags.push({ t: '#특이_충돌_없음', kind: 'good' });
+
+    P.forEach(p => { p.slot = (p.cat === '선크림' || p.cat === '메이크업') ? 'AM' : p.keys.some(k => pmKeys.includes(k)) ? 'PM' : p.keys.includes('vitc') ? 'AM' : 'BOTH'; });
+    const ord = list => [...list].sort((a, b) => (C.CAT_ORDER[a.cat] || 4.5) - (C.CAT_ORDER[b.cat] || 4.5) || a.n - b.n);
+    const ordered = ord(P);
+    const reordered = ordered.some((p, i) => p.n !== i + 1);
+    const am = ordered.filter(p => p.slot !== 'PM');
+    if (!hasSun) am.push({ n: 0, label: '선크림 SPF50+ 추가 권장', cat: '선크림', ghost: true });
+    const pm = ordered.filter(p => p.slot !== 'AM');
+    const rb = (a, b) => { const q = pairs.find(x => (x.i === a.n - 1 && x.j === b.n - 1) || (x.i === b.n - 1 && x.j === a.n - 1)); return q ? q.risk : 0; };
+    const dayA = [], dayB = [];
+    pm.filter(p => p.slot === 'PM').forEach(p => (dayA.some(q => rb(p, q) > 50) ? dayB : dayA).push(p));
+    const basics = pm.filter(p => p.slot === 'BOTH');
+    const split = dayB.length > 0;
+    const pmGroups = split ? [{ title: 'Day A · 첫째 날', items: ord([...dayA, ...basics]) }, { title: 'Day B · 둘째 날', items: ord([...dayB, ...basics]) }] : [{ title: '매일 저녁', items: pm }];
+    const tip = split ? '격일(하루 걸러 하루) 사용을 권장합니다.' : band === 'mid' ? '강한 액티브는 흡수 후 15~20분 뒤 다음 단계를 바르세요.' : band === 'high' ? '자극 성분은 한 번에 하나만, 보습으로 마무리하세요.' : '매일 사용해도 좋은 안심 루틴입니다.';
+
+    const warns = [];
+    if (st.preg && (all.includes('retinol') || all.includes('bha'))) warns.push('임산부/수유부 주의 성분이 포함되어 있어요.');
+    if (st.history.includes('rx') && all.some(k => ['retinol', 'aha', 'bha', 'bpo'].includes(k))) warns.push('처방약과 겹칠 수 있는 액티브 성분이 있어요.');
+    const warnText = warns.length ? warns.join(' ') + ' 사용 전 전문의와 상담하세요.' : '';
+    return { risk, band, tags, P, pairs, sorted, am, pmGroups, split, tip, warnText, adjust, reordered };
+  }
+
+  searchT = {};
+  runSearch(id, v) {
+    this.updStep(id, { query: v, searching: !!v.trim(), results: [] });
+    clearTimeout(this.searchT[id]);
+    if (!v.trim()) return;
+    this.searchT[id] = setTimeout(() => this.updStep(id, { searching: false, results: Component.searchCatalog(v) }), 280);
+  }
+  pickProduct(id, p) { this.updStep(id, { product: p, cat: p.cat, text: Component.ptext(p), query: '', results: [], searching: false, manual: false }); }
+  moveStep(id, dir) {
+    this.setState(st => {
+      const s = st.steps.slice(), i = s.findIndex(x => x.id === id), j = i + dir;
+      if (j < 0 || j >= s.length) return null;
+      [s[i], s[j]] = [s[j], s[i]];
+      return { steps: s };
+    });
+  }
+  loadSnapshot(snap) {
+    this.setState({ steps: snap.map(x => Component.mk(x.cat, x.text, x.product)), tab: 'analyzer', sheet: null }, () => this.finishAnalysis());
+  }
+  altVals(r) {
+    const none = { hasAlt: false, altTitle: '', altItems: [] };
+    if (!r || !r.sorted.length || r.sorted[0].risk <= 50) return none;
+    const q = r.sorted[0], filled = this.filledSteps();
+    let best = null;
+    [q.i, q.j].forEach(k => {
+      const others = r.P.filter((_, i) => i !== k);
+      const cands = Component.CATALOG.filter(c => c.cat === r.P[k].cat && !r.P[k].label.includes(c.name)).map(c => {
+        const keys = this.detect(Component.ptext(c));
+        const worst = others.reduce((m, o) => Math.max(m, this.pairEval(keys, o.keys).risk), 0);
+        return { c, worst };
+      }).filter(x => x.worst < q.risk - 15).sort((a, b) => a.worst - b.worst).slice(0, 2);
+      if (cands.length && (!best || cands[0].worst < best.cands[0].worst)) best = { k, cands };
+    });
+    if (!best) return none;
+    const step = filled[best.k];
+    return {
+      hasAlt: true,
+      altTitle: best.k + 1 + '번 ' + r.P[best.k].label + ' 대신 쓰면 가장 큰 충돌(' + q.risk + '%)을 줄일 수 있어요.',
+      altItems: best.cands.map(({ c, worst }) => ({
+        brand: c.brand, name: c.name, tint: Component.TINT[c.cat] || '#E7ECF2', note: '교체 시 최대 충돌 ' + worst + '%',
+        onSwap: () => { this.pickProduct(step.id, c); this.flash('제품을 교체하고 다시 분석했어요'); setTimeout(() => this.finishAnalysis(), 0); }
+      }))
+    };
+  }
+  filledSteps() { return this.state.steps.filter(x => x.text.trim()); }
+  analyze = () => {
+    if (this.filledSteps().length < 2) { this.flash('제품을 2개 이상 입력해 주세요'); return; }
+    this.setState({ analyzing: true, result: null, saved: false }, () => this.scrollTop());
+    clearTimeout(this.tA);
+    this.tA = setTimeout(() => this.finishAnalysis(), 400);
+  };
+  finishAnalysis() {
+    const r = this.compute(this.state.steps);
+    const snap = this.state.steps.filter(x => x.text.trim()).map(x => ({ cat: x.cat, text: x.text, product: x.product }));
+    const now = new Date(), time = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+    this.setState(st => ({ analyzing: false, result: r, pct: 0, saved: false, recent: [{ id: Date.now(), steps: snap, risk: r.risk, band: r.band, labels: r.P.map(p => p.label), time }, ...st.recent].slice(0, 5) }), () => this.scrollTop());
+    cancelAnimationFrame(this.raf);
+    const t0 = performance.now(), d = 1200;
+    const step = t => {
+      const p = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - p, 3);
+      this.setState({ pct: r.risk * e });
+      if (p < 1) this.raf = requestAnimationFrame(step);
+    };
+    this.raf = requestAnimationFrame(step);
+  }
+  updStep(id, patch) { this.setState(st => ({ steps: st.steps.map(x => x.id === id ? { ...x, ...patch } : x) })); }
+  paste(id) {
+    const cb = navigator.clipboard;
+    if (!cb || !cb.readText) { this.flash('클립보드 접근이 차단되었어요. 직접 붙여넣어 주세요'); return; }
+    cb.readText().then(t => {
+      if (!t) return this.flash('클립보드가 비어 있어요');
+      this.updStep(id, { text: t, manual: true, product: null }); this.flash('클립보드 내용을 붙여넣었어요');
+    }).catch(() => this.flash('클립보드 접근이 차단되었어요. 직접 붙여넣어 주세요'));
+  }
+  productText(p) { return p.brand + ' ' + p.name + '\n' + p.ing.join(', '); }
+  addFromVanity(p, targetId) {
+    this.setState(st => {
+      const steps = st.steps.slice();
+      const idx = targetId ? steps.findIndex(x => x.id === targetId) : steps.findIndex(x => !x.text.trim());
+      const val = { cat: p.cat, text: this.productText(p), product: p, manual: false, query: '', results: [] };
+      if (idx >= 0) steps[idx] = { ...steps[idx], ...val };
+      else if (steps.length < 8) steps.push(Component.mk(val.cat, val.text, p));
+      return { steps, sheet: null, tab: 'analyzer', result: null, analyzing: false };
+    });
+    this.flash('루틴에 추가했어요');
+  }
+
+  social(m) { this.setState({ method: m, loggedIn: true, onboarded: false, authErr: '' }); }
+  submitAuth = e => {
+    if (e && e.preventDefault) e.preventDefault();
+    const { email, pw } = this.state;
+    if (!/^\S+@\S+\.\S+$/.test(email)) return this.setState({ authErr: '올바른 이메일 주소를 입력해 주세요' });
+    if (pw.length < 8) return this.setState({ authErr: '비밀번호는 8자 이상이어야 해요' });
+    this.setState({ authLoading: true, authErr: '' });
+    clearTimeout(this.tB);
+    this.tB = setTimeout(() => this.setState({ authLoading: false, loggedIn: true, onboarded: false, method: 'email' }), 700);
+  };
+
+  chipStyle(on) {
+    return on ? { bg: '#ECFDF5', color: '#047857', border: '#10B981', dotBg: '#10B981', dotBorder: '#10B981' }
+      : { bg: '#fff', color: '#334155', border: '#E2E8F0', dotBg: '#fff', dotBorder: '#CBD5E1' };
+  }
+  detChips(keys) {
+    return keys.map(k => ({ n: this.nameOf(k), onClick: () => this.setState({ sheet: 'ing', ingKey: k }),
+      ...(Component.SOOTHE.includes(k) || k === 'uvf' ? { bg: '#ECFDF5', color: '#047857' } : k === 'niacin' ? { bg: '#F1F5F9', color: '#0F172A' } : { bg: '#FFF7ED', color: '#B45309' }) }));
+  }
+
+  onbTop() { const el = this.onbRef.current; if (el) el.scrollTop = 0; }
+  onbVals() {
+    const s = this.state, C = Component;
+    const sel = on => ({ bg: on ? '#ECFDF5' : '#fff', border: on ? '#10B981' : '#F1F5F9', radio: on ? '#10B981' : '#CBD5E1', dot: on ? '#10B981' : 'transparent' });
+    const tog = (key, v) => this.setState(st => ({ [key]: st[key].includes(v) ? st[key].filter(x => x !== v) : [...st[key], v] }));
+    const can = s.onbStep === 0 ? !!s.baseType : s.onbStep === 1 ? s.sens > 0 : true;
+    const sensitive = s.concerns.includes('민감성/홍조') || s.concerns.includes('장벽손상') || s.sens >= 4;
+    const pv = [];
+    if (sensitive) pv.push('민감 피부 +8');
+    if (s.baseType === '지성') pv.push('지성 -3');
+    if (s.baseType === '건성') pv.push('건성 +2');
+    if (s.history.includes('acid')) pv.push('산성분 이력 +5');
+    if (s.history.includes('noRetinol')) pv.push('레티놀 첫 사용 +5');
+    if (s.history.includes('procedure')) pv.push('시술 후 +6');
+    return {
+      onbRef: this.onbRef,
+      onbBars: [0, 1, 2].map(i => ({ bg: i <= s.onbStep ? '#10B981' : '#E2E8F0' })),
+      onbStepText: (s.onbStep + 1) + ' / 3',
+      onb0: s.onbStep === 0, onb1: s.onbStep === 1, onb2: s.onbStep === 2,
+      onbBackOpacity: s.onbStep > 0 ? 1 : 0.35,
+      onbBack: () => { if (s.onbStep > 0) this.setState({ onbStep: s.onbStep - 1 }, () => this.onbTop()); },
+      baseCards: C.BASES.map(b => ({ label: b.k, desc: b.d, ...sel(s.baseType === b.k), onClick: () => this.setState({ baseType: b.k, quizOpen: false, quizAns: null }) })),
+      unsure: { ...sel(s.quizOpen), border: s.quizOpen ? '#10B981' : '#CBD5E1' },
+      openQuiz: () => this.setState({ quizOpen: true, baseType: null, quizAns: null }),
+      quizOpen: s.quizOpen,
+      quizOpts: C.QUIZ.map((q, i) => { const on = s.quizAns === i; return { label: q.t, bg: on ? '#0F172A' : '#fff', color: on ? '#fff' : '#334155', border: on ? '#0F172A' : '#E2E8F0', onClick: () => this.setState({ quizAns: i, baseType: q.k }) }; }),
+      quizResult: s.quizAns != null ? '→ ‘' + s.baseType + '’ 피부로 추정돼요. 위 목록에 반영했어요.' : '',
+      concernCards: C.CONCERNS.map(c => ({ label: c.k, desc: c.d, ...this.chipStyle(s.concerns.includes(c.k)), onClick: () => tog('concerns', c.k) })),
+      sensBtns: C.SENS.map((x, i) => { const on = s.sens === i + 1; return { n: i + 1, label: x.t, bg: on ? '#0F172A' : '#fff', color: on ? '#fff' : '#0F172A', sub: on ? '#CBD5E1' : '#64748B', border: on ? '#0F172A' : '#E2E8F0', onClick: () => this.setState({ sens: i + 1 }) }; }),
+      sensDesc: s.sens ? C.SENS[s.sens - 1].d : '1(거의 없음)부터 5(거의 항상)까지 골라주세요.',
+      historyRows: C.HISTORY.map(h => { const on = s.history.includes(h.k); return { t: h.t, bg: on ? '#ECFDF5' : '#fff', border: on ? '#10B981' : '#F1F5F9', boxBg: on ? '#10B981' : '#fff', boxBorder: on ? '#10B981' : '#CBD5E1', onClick: () => tog('history', h.k) }; }),
+      profileRows: [
+        { k: '기본 타입', v: s.baseType || '미설정' },
+        { k: '피부 고민', v: s.concerns.join(', ') || '없음' },
+        { k: '자극 민감도', v: s.sens ? s.sens + ' / 5 · ' + C.SENS[s.sens - 1].t : '미설정' },
+        { k: '주의 사항', v: C.HISTORY.filter(h => s.history.includes(h.k)).map(h => h.s).concat(s.preg ? ['임산부 알림'] : []).join(', ') || '없음' }
+      ],
+      adjustPreview: pv.length ? '분석 시 반영: ' + pv.join(' · ') : '특별한 보정 없이 기본 기준으로 분석해요.',
+      onbNextText: s.onbStep < 2 ? '다음' : '피부 프로필 저장하고 시작하기',
+      onbNextBg: can ? '#0F172A' : '#E2E8F0', onbNextColor: can ? '#fff' : '#64748B',
+      onbNext: () => {
+        if (!can) return this.flash(s.onbStep === 0 ? '기본 피부 타입을 선택해 주세요' : '자극 민감도를 선택해 주세요');
+        if (s.onbStep < 2) this.setState({ onbStep: s.onbStep + 1 }, () => this.onbTop());
+        else { this.setState({ onboarded: true, tab: 'analyzer', onbStep: 0 }); this.flash('피부 프로필이 저장됐어요'); }
+      },
+      redoOnb: () => this.setState({ onboarded: false, onbStep: 0 })
+    };
+  }
+  resultVals(r) {
+    const BC = { low: ['#D1FAE5', '#047857'], mid: ['#FEF3C7', '#B45309'], high: ['#FEE2E2', '#B91C1C'] };
+    const bandOf = v => v <= 30 ? 'low' : v <= 70 ? 'mid' : 'high';
+    if (!r) return { resProducts: [], pairCountText: '', matrixCols: '1fr', matrixRows: [], pairRows: [], noClash: false, amList: [], pmGroups: [], pmSplit: false, tip: '', reordered: false };
+    const N = r.P.length, hd = t => ({ t, bg: 'transparent', color: '#64748B' });
+    const cell = (i, j) => {
+      if (i === j) return { t: '', bg: '#F1F5F9', color: '#94A3B8' };
+      const q = r.pairs.find(x => (x.i === i && x.j === j) || (x.i === j && x.j === i));
+      const c = BC[bandOf(q.risk)];
+      return { t: q.risk, bg: c[0], color: c[1] };
+    };
+    const short = l => l.length > 14 ? l.slice(0, 13) + '…' : l;
+    return {
+      resProducts: r.P.map(p => ({ n: p.n, short: p.label })),
+      pairCountText: N + '개 제품 · ' + r.pairs.length + '개 조합',
+      matrixCols: '22px repeat(' + N + ', minmax(0,1fr))',
+      matrixRows: [{ cells: [hd(''), ...r.P.map(p => hd(p.n))] }, ...r.P.map((p, i) => ({ cells: [hd(p.n), ...r.P.map((_, j) => cell(i, j))] }))],
+      pairRows: r.sorted.filter(q => q.risk > 30 || q.hits.length).map(q => {
+        const c = BC[bandOf(q.risk)];
+        return { ni: q.i + 1, nj: q.j + 1, la: short(r.P[q.i].label), lb: short(r.P[q.j].label), pct: q.risk + '%', bg: c[0], color: c[1],
+          tagsText: [...new Set(q.hits.flatMap(h => h.tags))].join(' ') || '액티브 성분 중첩 — 시간차 사용 권장' };
+      }),
+      noClash: !r.sorted.some(q => q.risk > 30 || q.hits.length),
+      amList: r.am.map((p, i) => ({ step: p.ghost ? '+' : i + 1, label: p.label, cat: p.cat, color: p.ghost ? '#B45309' : '#0F172A', catBg: p.ghost ? '#FFFBEB' : '#F1F5F9', catColor: p.ghost ? '#B45309' : '#475569' })),
+      pmGroups: r.pmGroups.map(g => ({ title: g.title, items: g.items.map((p, i) => ({ step: i + 1, label: p.label, cat: p.cat })) })),
+      pmSplit: r.split, tip: r.tip, reordered: r.reordered
+    };
+  }
+  renderVals() {
+    const s = this.state;
+    const userName = this.props.userName ?? '정묵';
+    const navStyle = this.props.navStyle ?? 'pill';
+    const r = s.result;
+    const app = s.loggedIn && s.onboarded;
+    const BAND = {
+      low: { c: '#10B981', t: '#047857', bg: '#ECFDF5', l: '안심 조합 (보습 & 피부 장벽 시너지)' },
+      mid: { c: '#F59E0B', t: '#B45309', bg: '#FFFBEB', l: '시간차 사용 권장 (민감성 피부 주의)' },
+      high: { c: '#EF4444', t: '#B91C1C', bg: '#FEF2F2', l: '동시 사용 비추천 (자극 및 각질 손상 위험)' }
+    };
+    const bd = BAND[r ? r.band : 'low'];
+    const L = Math.PI * 90, f = s.pct / 100, ang = Math.PI - Math.PI * f;
+    const level = r ? Math.min(5, Math.max(1, Math.ceil(r.risk / 20))) : 1;
+    const liveLevel = r ? Math.min(level, Math.ceil(s.pct / 20)) : 0;
+    const LVL = ['자극 거의 없음', '가벼운 당김 가능성', '예민 부위 따끔거림 가능성', '따가움/붉은기 유발 가능성', '강한 자극 · 각질 손상 위험'];
+    const TAGC = { clash: ['#FEF2F2', '#B91C1C'], caution: ['#FFFBEB', '#B45309'], good: ['#ECFDF5', '#047857'] };
+    const filled = this.filledSteps().length, ready = filled >= 2;
+    const nav = t => {
+      const on = s.tab === t;
+      return { bg: on ? '#0F172A' : 'transparent', color: on ? '#fff' : '#64748B', fill: on ? 'currentColor' : 'none', barColor: on ? '#047857' : '#94A3B8' };
+    };
+    const field = (k, filled) => {
+      const foc = s.focus === k, up = foc || filled;
+      return { top: up ? '10px' : '19px', size: up ? '11.5px' : '15px', color: foc ? '#047857' : '#64748B', border: foc ? '#10B981' : '#E2E8F0', ring: foc ? '0 0 0 4px rgba(16,185,129,.12)' : 'none' };
+    };
+    const fe = field('email', !!s.email), fp = field('pw', !!s.pw);
+    const isLogin = s.authMode === 'login';
+    const vis = s.vanity.filter(p => s.filter === '전체' || p.cat === s.filter);
+    const dpRaw = s.vanity.find(p => p.id === s.detailId);
+    const methodMap = { kakao: '카카오 계정으로 로그인됨', apple: 'Apple ID로 로그인됨', google: 'Google 계정으로 로그인됨', email: s.email || '이메일 계정' };
+    const canAdd = s.np.name.trim() && s.np.ing.trim();
+    const setNp = (k, v) => this.setState(st => ({ np: { ...st.np, [k]: v } }));
+    const toggleSkin = x => this.setState(st => ({ skin: st.skin.includes(x) ? st.skin.filter(y => y !== x) : [...st.skin, x] }));
+
+    return {
+      userName, initial: userName.slice(0, 1),
+      showAuth: !s.loggedIn, showOnb: s.loggedIn && !s.onboarded, showApp: app,
+      welcomeLine: userName + '님, 환영해요',
+      loginKakao: () => this.social('kakao'), loginApple: () => this.social('apple'), loginGoogle: () => this.social('google'),
+      modeLogin: () => this.setState({ authMode: 'login', authErr: '' }), modeSignup: () => this.setState({ authMode: 'signup', authErr: '' }),
+      toggleMode: () => this.setState({ authMode: isLogin ? 'signup' : 'login', authErr: '' }),
+      altModeText: isLogin ? '회원가입' : '로그인',
+      tabLoginBg: isLogin ? '#fff' : 'transparent', tabLoginColor: isLogin ? '#0F172A' : '#64748B', tabLoginShadow: isLogin ? '0 2px 8px rgba(15,23,42,.08)' : 'none',
+      tabSignupBg: !isLogin ? '#fff' : 'transparent', tabSignupColor: !isLogin ? '#0F172A' : '#64748B', tabSignupShadow: !isLogin ? '0 2px 8px rgba(15,23,42,.08)' : 'none',
+      email: s.email, pw: s.pw,
+      onEmail: e => this.setState({ email: e.target.value, authErr: '' }), onPw: e => this.setState({ pw: e.target.value, authErr: '' }),
+      focusEmail: () => this.setState({ focus: 'email' }), focusPw: () => this.setState({ focus: 'pw' }), blurField: () => this.setState({ focus: null }),
+      emailLabelTop: fe.top, emailLabelSize: fe.size, emailLabelColor: fe.color, emailBorder: fe.border, emailRing: fe.ring,
+      pwLabelTop: fp.top, pwLabelSize: fp.size, pwLabelColor: fp.color, pwBorder: fp.border, pwRing: fp.ring,
+      pwLabel: isLogin ? '비밀번호' : '비밀번호 (8자 이상)',
+      authErr: s.authErr, submitAuth: this.submitAuth,
+      authBtnText: s.authLoading ? '확인 중…' : isLogin ? '로그인' : '가입하고 시작하기', authBtnOpacity: s.authLoading ? 0.7 : 1,
+      findPw: () => this.flash('비밀번호 재설정 메일을 보냈어요'),
+      skinChips: Component.SKIN.map(x => ({ label: x, ...this.chipStyle(s.skin.includes(x)), onClick: () => toggleSkin(x) })),
+      togglePreg: () => this.setState(st => ({ preg: !st.preg })),
+      pregTrack: s.preg ? '#10B981' : '#E2E8F0', pregKnob: s.preg ? '20px' : '0px',
+      finishOnb: () => { this.setState({ onboarded: true, tab: 'analyzer' }); this.flash('피부 프로필이 저장됐어요'); },
+      skipOnb: () => this.setState({ onboarded: true, tab: 'analyzer', onbStep: 0 }),
+      skinSummary: s.baseType ? '내 피부 · ' + [s.baseType, ...s.concerns].join(' · ') + (s.sens ? ' · 민감도 ' + s.sens : '') : '피부 타입 미설정 · 설정하기',
+      ...this.onbVals(),
+
+      scrollRef: this.scrollRef,
+      showInput: app && s.tab === 'analyzer' && !s.analyzing && !r,
+      analyzing: app && s.tab === 'analyzer' && s.analyzing,
+      showResult: app && s.tab === 'analyzer' && !!r && !s.analyzing,
+      showVanity: app && s.tab === 'vanity', showProfile: app && s.tab === 'profile',
+      showCta: app && s.tab === 'analyzer' && !r && !s.analyzing,
+      stepCount: s.steps.length, catalogCount: Component.CATALOG.length,
+      anyFilled: filled > 0,
+      clearAll: () => this.setState({ steps: [Component.mk('토너'), Component.mk('크림')] }),
+      hasRecent: s.recent.length > 0,
+      recentCards: s.recent.slice(0, 3).map(x => ({ title: x.steps.length + '단계 루틴', time: x.time, sub: x.labels.join(' → '), pct: x.risk + '%', bg: BAND[x.band].bg, text: BAND[x.band].t, onLoad: () => this.loadSnapshot(x.steps) })),
+      shareResult: () => {
+        if (!r) return;
+        const txt = '[SkinMatch 루틴 분석] 충돌 위험도 ' + r.risk + '% · ' + BAND[r.band].l + '\n' + r.P.map(p => p.n + '. ' + p.label).join('\n') + '\n💡 ' + r.tip;
+        if (navigator.share) navigator.share({ title: 'SkinMatch 분석 결과', text: txt }).catch(() => {});
+        else if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => this.flash('결과 요약을 복사했어요'), () => this.flash('공유를 지원하지 않는 환경이에요'));
+      },
+      ...this.altVals(r),
+      sheetIng: s.sheet === 'ing' && !!s.ingKey,
+      ingName: s.ingKey ? this.nameOf(s.ingKey) : '',
+      ...(() => {
+        const inf = Component.INFO[s.ingKey] || ['', '', '', [], []];
+        const kc = inf[0] === '안심 성분' ? ['#ECFDF5', '#047857'] : inf[0] === '대체로 안심' ? ['#F1F5F9', '#334155'] : ['#FFFBEB', '#B45309'];
+        return { ingKind: inf[0], ingDesc: inf[1], ingTip: inf[2], ingGood: inf[3], ingAvoid: inf[4], ingKindBg: kc[0], ingKindColor: kc[1] };
+      })(),
+      sheetScan: s.sheet === 'scan',
+      scanSample: () => {
+        const p = Component.CATALOG[Math.floor(Math.random() * Component.CATALOG.length)];
+        if (s.scanTarget) this.pickProduct(s.scanTarget, p);
+        this.setState({ sheet: null });
+        this.flash('스캔 완료 · ' + p.name);
+      },
+      stepCards: s.steps.map((x, i) => {
+        const keys = this.detect(x.text), has = !!x.text.trim();
+        return {
+          n: i + 1, cat: x.cat, text: x.text, ph: Component.PH[x.cat] || Component.PH['기타'],
+          onText: e => this.updStep(x.id, { text: e.target.value }),
+          hasProduct: !!x.product, searchMode: !x.product && !x.manual, manualMode: !x.product && !!x.manual,
+          pBrand: x.product ? x.product.brand : '', pName: x.product ? x.product.name : '', pIng: x.product ? x.product.ing.join(', ') : '',
+          pTint: x.product ? (Component.TINT[x.product.cat] || '#E7ECF2') : '#EEF2F6',
+          onChangeProduct: () => this.updStep(x.id, { product: null, text: '', query: '', manual: false }),
+          onManual: () => this.updStep(x.id, { manual: true, product: null, query: '', results: [] }),
+          onSearchMode: () => this.updStep(x.id, { manual: false, text: '' }),
+          query: x.query, onQuery: e => this.runSearch(x.id, e.target.value),
+          searching: !!x.searching, showDrop: !!x.query.trim(),
+          searchBorder: x.query.trim() ? '#10B981' : '#F1F5F9',
+          results: (x.results || []).map(p => ({ brand: p.brand, name: p.name, cat: p.cat, preview: p.ing.filter(i => i !== '정제수').slice(0, 3).join(', '), tint: Component.TINT[p.cat] || '#E7ECF2', onPick: () => this.pickProduct(x.id, p) })),
+          noResult: !x.searching && !!x.query.trim() && !(x.results || []).length,
+          hintVisible: !x.query.trim(),
+          quick: (Component.QUICK[x.cat] || []).map(t => ({ t, onClick: () => this.runSearch(x.id, t) })),
+          onCat: e => this.updStep(x.id, { cat: e.target.value }),
+          onPaste: () => this.paste(x.id),
+          onUp: () => this.moveStep(x.id, -1), onDown: () => this.moveStep(x.id, 1),
+          upOpacity: i > 0 ? 1 : 0.3, downOpacity: i < s.steps.length - 1 ? 1 : 0.3,
+          onScan: () => this.setState({ sheet: 'scan', scanTarget: x.id }),
+          onPick: () => this.setState({ sheet: 'picker', pickerTarget: x.id }),
+          onRemove: () => { if (s.steps.length <= 1) return; this.setState(st => ({ steps: st.steps.filter(y => y.id !== x.id) })); },
+          removeOpacity: s.steps.length > 1 ? 1 : 0.35,
+          filled: has, det: this.detChips(keys), detNone: has && !keys.length,
+          dotBg: has ? '#0F172A' : '#fff', dotColor: has ? '#fff' : '#64748B', dotBorder: has ? '#0F172A' : '#CBD5E1'
+        };
+      }),
+      addStep: () => {
+        if (s.steps.length >= 8) return this.flash('루틴은 최대 8단계까지 추가할 수 있어요');
+        const last = s.steps[s.steps.length - 1];
+        const next = { '토너': '에센스·앰플', '에센스·앰플': '세럼', '세럼': '크림', '아이크림': '크림', '크림': '선크림' }[last ? last.cat : ''] || '기타';
+        this.setState(st => ({ steps: [...st.steps, Component.mk(next)] }));
+      },
+      sampleRoutine: () => this.setState({ steps: Component.sample() }),
+      openPickerNew: () => this.setState({ sheet: 'picker', pickerTarget: null }),
+      analyze: this.analyze,
+      ctaText: ready ? filled + '개 제품 성분 충돌 & 자극 분석하기' : '제품을 2개 이상 입력해 주세요',
+      ctaBg: ready ? '#0F172A' : '#E2E8F0', ctaColor: ready ? '#fff' : '#64748B', ctaIcon: ready ? '#34D399' : '#94A3B8',
+      ctaShadow: ready ? '0 16px 32px -12px rgba(15,23,42,.5)' : 'none',
+
+      pregWarn: !!(r && r.warnText), warnText: r ? r.warnText : '', hasAdjust: !!(r && r.adjust.length), adjustText: r ? r.adjust.join(' · ') : '',
+      bandColor: bd.c, bandText: bd.t, bandBg: bd.bg, bandLabel: bd.l,
+      gaugeOffset: L * (1 - f), knobX: 110 + 90 * Math.cos(ang), knobY: 110 - 90 * Math.sin(ang),
+      pctText: Math.round(s.pct),
+      level, levelText: LVL[level - 1],
+      segs: [0, 1, 2, 3, 4].map(i => ({ bg: i < liveLevel ? bd.c : '#EEF2F6' })),
+      tags: r ? r.tags.map(t => ({ t: t.t, bg: TAGC[t.kind][0], color: TAGC[t.kind][1] })) : [],
+      ...this.resultVals(r),
+      backToInput: () => this.setState({ result: null }, () => this.scrollTop()),
+      recheck: () => { this.setState({ result: null }, () => this.scrollTop()); },
+      saveCombo: () => {
+        if (s.saved || !r) return;
+        this.setState(st => ({ saved: true, combos: [{ id: Date.now(), a: r.P.length + '단계 루틴', b: r.P.map(p => p.label).join(' → '), risk: r.risk, band: r.band, steps: st.steps.filter(x => x.text.trim()).map(x => ({ cat: x.cat, text: x.text, product: x.product })) }, ...st.combos] }));
+        this.flash('내 화장대에 루틴을 저장했어요');
+      },
+      saveBg: s.saved ? '#ECFDF5' : '#0F172A', saveColor: s.saved ? '#047857' : '#fff', saveFill: s.saved ? 'currentColor' : 'none',
+      saveText: s.saved ? '내 화장대에 저장됨' : '내 화장대에 이 루틴 저장하기',
+
+      vanityCount: s.vanity.length, comboCount: s.combos.length, hasCombos: s.combos.length > 0,
+      combos: s.combos.map(c => ({ onLoad: () => c.steps ? this.loadSnapshot(c.steps) : null, a: c.a, b: c.b, pct: c.risk + '%', bg: BAND[c.band].bg, text: BAND[c.band].t })),
+      filters: Component.CATS.map(c => {
+        const on = s.filter === c;
+        return { label: c, bg: on ? '#0F172A' : '#fff', color: on ? '#fff' : '#475569', border: on ? '#0F172A' : '#E2E8F0', onClick: () => this.setState({ filter: c }) };
+      }),
+      products: vis.map(p => ({
+        ...p, tint: Component.TINT[p.cat] || '#EEF2F6',
+        keys: p.ing.length > 2 ? [...p.ing.slice(0, 2).map(x => x.replace(/\s?\d+(\.\d+)?%/, '')), '+' + (p.ing.length - 2)] : p.ing,
+        onOpen: () => this.setState({ sheet: 'detail', detailId: p.id })
+      })),
+      noProducts: vis.length === 0,
+      openAdd: () => this.setState({ sheet: 'add', np: { brand: '', name: '', cat: s.filter !== '전체' ? s.filter : '세럼', ing: '' } }),
+
+      methodText: methodMap[s.method],
+      goAnalyzer: () => this.setTab('analyzer'), goVanity: () => this.setTab('vanity'), goProfile: () => this.setTab('profile'),
+      soon: () => this.flash('준비 중인 기능이에요'),
+      logout: () => { this.setState({ loggedIn: false, onboarded: false, result: null, tab: 'analyzer', email: '', pw: '' }); },
+      navPill: app && navStyle !== 'bar', navBar: app && navStyle === 'bar',
+      navA: nav('analyzer'), navV: nav('vanity'), navP: nav('profile'),
+
+      showSheet: !!s.sheet, closeSheet: () => this.setState({ sheet: null }), stop: e => e.stopPropagation(),
+      sheetPicker: s.sheet === 'picker', sheetDetail: s.sheet === 'detail' && !!dpRaw, sheetAdd: s.sheet === 'add',
+      pickerTargetText: s.pickerTarget ? '선택한 단계를 이 제품으로 채워요' : '루틴의 빈 단계에 추가하거나 새 단계로 넣어요',
+      pickList: s.vanity.map(p => ({ ...p, tint: Component.TINT[p.cat] || '#EEF2F6', onPick: () => this.addFromVanity(p, s.pickerTarget) })),
+      dp: dpRaw ? { ...dpRaw, tint: Component.TINT[dpRaw.cat] || '#EEF2F6' } : { ing: [] },
+      loadDetail: () => dpRaw && this.addFromVanity(dpRaw, null),
+      deleteDetail: () => { this.setState(st => ({ vanity: st.vanity.filter(p => p.id !== st.detailId), sheet: null })); this.flash('화장대에서 삭제했어요'); },
+      np: s.np,
+      onNpBrand: e => setNp('brand', e.target.value), onNpName: e => setNp('name', e.target.value), onNpIng: e => setNp('ing', e.target.value),
+      npCats: Component.CATS.slice(1).map(c => ({ label: c, ...this.chipStyle(s.np.cat === c), onClick: () => setNp('cat', c) })),
+      addBg: canAdd ? '#0F172A' : '#E2E8F0', addColor: canAdd ? '#fff' : '#64748B',
+      addProduct: () => {
+        if (!canAdd) return this.flash('제품명과 주요 성분을 입력해 주세요');
+        const np = s.np;
+        const item = { id: Date.now(), brand: np.brand.trim() || '브랜드 미입력', name: np.name.trim(), cat: np.cat, date: '2026.09.30', ing: np.ing.split(/[,\n]/).map(x => x.trim()).filter(Boolean) };
+        this.setState(st => ({ vanity: [item, ...st.vanity], sheet: null, filter: '전체' }));
+        this.flash('화장대에 등록했어요');
+      },
+      toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
