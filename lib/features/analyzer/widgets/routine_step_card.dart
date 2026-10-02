@@ -14,6 +14,7 @@ import '../../../providers/routine_provider.dart';
 import '../../../widgets/common.dart';
 import '../../../widgets/dashed_border.dart';
 import '../label_scan.dart';
+import '../quick_pick.dart';
 import '../sheets.dart';
 
 /// 루틴 한 단계 (왼쪽 번호 레일 + 카드)
@@ -105,9 +106,97 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
     _n.pickProduct(_s.id, p);
   }
 
+  void _otherMethods() {
+    setState(_resetSearch);
+    showInputMethodSheet(context, ref, stepId: _s.id, category: _s.category);
+  }
+
+  /// 주요 성분만 넣은 단계: 간단 입력 표시 + 사진으로 전성분 넣기 안내
+  Widget _quickView() {
+    final label = _s.text.split('\n').first;
+    return FadeIn(
+      ms: 300,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: SM.warnBg,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: SM.warnLine),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Pill('간단 입력', bg: Colors.white, fg: SM.warnTx),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: st(14, w: w700),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Pressable(
+                  onTap: () => _n.clearProduct(_s.id),
+                  child: Container(
+                    height: 28,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(999),
+                      border: Border.all(color: SM.line),
+                    ),
+                    child: Center(
+                      widthFactor: 1,
+                      child: Text(
+                        '변경',
+                        style: st(12, w: w600, c: SM.ink600),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text('주요 성분만 넣었어요. 전성분을 넣으면 분석이 더 정확해져요.', style: st(12, c: SM.warnInk2, h: 1.5)),
+            const SizedBox(height: 4),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Pressable(
+                scale: 1,
+                onTap: _photo,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SmIcon(Ic.camera, size: 13, color: SM.warnTx, strokeWidth: 2),
+                      const SizedBox(width: 5),
+                      Text(
+                        '사진으로 전성분 넣기',
+                        style: st(12.5, w: w600, c: SM.warnTx),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void _photo() {
     setState(_resetSearch);
-    startLabelScan(context, ref, stepId: _s.id, category: _s.category);
+    // 간단 입력 단계에서 사진으로 바꿀 때는 적어 둔 제품 이름을 이어서 써요.
+    final base = _s.quick
+        ? Product(id: '', brand: '', name: _s.text.split('\n').first, category: _s.category, ingredients: const [])
+        : null;
+    startLabelScan(context, ref, stepId: _s.id, category: _s.category, base: base);
   }
 
   Future<void> _paste() async {
@@ -129,7 +218,7 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
     final s = _s;
     final has = s.isFilled;
     final keys = detectIngredients(s.text);
-    final searchMode = s.product == null && !s.manual;
+    final searchMode = s.product == null && !s.manual && !s.quick;
     final q = _query.text.trim();
 
     return FadeIn(
@@ -177,6 +266,7 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
                       const SizedBox(height: 8),
                       if (s.product != null) _productView(s.product!),
                       if (searchMode) ..._searchView(q),
+                      if (s.product == null && s.quick) _quickView(),
                       if (s.product == null && s.manual) ..._manualView(),
                       if (has) ...[
                         const SizedBox(height: 8),
@@ -268,7 +358,138 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
     );
   }
 
-  Widget _productView(Product p) => FadeIn(
+  Widget _productView(Product p) => p.hasIngredients ? _filledProductView(p) : _needsIngredientsView(p);
+
+  /// 검색(네이버)으로 고른 제품: 전성분이 없어서 넣는 방법을 바로 보여 줘요.
+  Widget _needsIngredientsView(Product p) {
+    void run(String method) {
+      setState(_resetSearch);
+      runInputMethod(context, ref, method, stepId: _s.id, category: p.category, base: p);
+    }
+
+    Widget action(String method, String icon, String label, {bool primary = false}) => Expanded(
+      child: Pressable(
+        semanticLabel: label,
+        onTap: () => run(method),
+        child: Container(
+          height: 44,
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          decoration: BoxDecoration(
+            color: primary ? SM.ink : Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: primary ? null : Border.all(color: SM.line),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SmIcon(icon, size: 14, color: primary ? Colors.white : SM.ink700, strokeWidth: 2),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: st(12.5, w: w600, c: primary ? Colors.white : SM.ink700),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    return FadeIn(
+      ms: 300,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: SM.bg,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: SM.border),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ProductThumb(p, size: 46, radius: 13, base: SM.bg),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        p.brand,
+                        style: st(11.5, w: w500, c: SM.inkSub),
+                      ),
+                      const SizedBox(height: 1),
+                      Text(
+                        p.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: st(14, w: w700, h: 1.35),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                _changeBtn(),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: BoxDecoration(color: SM.warnBg, borderRadius: BorderRadius.circular(12)),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 2),
+                    child: SmIcon(Ic.info, size: 13, color: SM.warnTx, strokeWidth: 2.2),
+                  ),
+                  const SizedBox(width: 7),
+                  Expanded(
+                    child: Text('전성분 정보가 아직 없어요. 전성분을 넣어야 분석할 수 있어요.', style: st(12.5, c: SM.warnInk2, h: 1.5)),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                action('photo', Ic.camera, '사진으로', primary: true),
+                const SizedBox(width: 6),
+                action('quick', Ic.zap, '주요 성분'),
+                const SizedBox(width: 6),
+                action('manual', Ic.clipboard, '직접 입력'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _changeBtn() => Pressable(
+    onTap: () => _n.clearProduct(_s.id),
+    child: Container(
+      height: 28,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: SM.line),
+      ),
+      child: Text(
+        '변경',
+        style: st(12, w: w600, c: SM.ink600),
+      ),
+    ),
+  );
+
+  Widget _filledProductView(Product p) => FadeIn(
     ms: 300,
     child: Container(
       padding: const EdgeInsets.all(10),
@@ -280,7 +501,7 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StripeBox(tint: SM.tint(p.category), width: 46, height: 46, radius: 13, base: SM.bg),
+          ProductThumb(p, size: 46, radius: 13, base: SM.bg),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -415,13 +636,10 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
                       const SizedBox(width: 8),
                       Pressable(
                         scale: 1,
-                        onTap: () {
-                          setState(_resetSearch);
-                          _n.manualMode(_s.id);
-                        },
+                        onTap: _otherMethods,
                         child: Padding(
                           padding: const EdgeInsets.all(4),
-                          child: Text('직접 입력', style: st(12, c: SM.inkSub)),
+                          child: Text('다른 방법', style: st(12, c: SM.inkSub)),
                         ),
                       ),
                       const SizedBox(width: 4),
@@ -474,11 +692,11 @@ class _RoutineStepCardState extends ConsumerState<RoutineStepCard> {
           const SizedBox(width: 8),
           Pressable(
             scale: 1,
-            onTap: () => _n.manualMode(_s.id),
+            onTap: _otherMethods,
             child: Padding(
               padding: const EdgeInsets.all(4),
               child: Text(
-                '성분 직접 입력',
+                '다른 방법으로 입력',
                 style: st(12, c: SM.inkSub, deco: TextDecoration.underline).copyWith(decorationThickness: 1),
               ),
             ),
@@ -676,7 +894,7 @@ class _ResultRowState extends State<_ResultRow> {
   @override
   Widget build(BuildContext context) {
     final p = widget.p;
-    final preview = p.ingredients.where((i) => i != '정제수').take(3).join(', ');
+    final preview = p.hasIngredients ? p.ingredients.where((i) => i != '정제수').take(3).join(', ') : '전성분은 고른 뒤에 넣어요';
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hover = true),
@@ -692,7 +910,7 @@ class _ResultRowState extends State<_ResultRow> {
           ),
           child: Row(
             children: [
-              StripeBox(tint: SM.tint(p.category), stripe: 5, width: 36, height: 36, radius: 10),
+              ProductThumb(p, size: 36, radius: 10, stripe: 5),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -910,4 +1128,39 @@ class _FieldIconBtn extends StatelessWidget {
       ),
     ),
   );
+}
+
+/// 제품 사진. 사진이 없거나 못 불러오면 프로토타입의 줄무늬 상자를 보여 줘요.
+class ProductThumb extends StatelessWidget {
+  const ProductThumb(this.p, {super.key, required this.size, required this.radius, this.stripe = 6, this.base});
+  final Product p;
+  final double size;
+  final double radius;
+  final double stripe;
+  final Color? base;
+
+  @override
+  Widget build(BuildContext context) {
+    final fallback = StripeBox(
+      tint: SM.tint(p.category),
+      stripe: stripe,
+      width: size,
+      height: size,
+      radius: radius,
+      base: base ?? SM.surface,
+    );
+    final url = p.imageUrl;
+    if (url == null || url.isEmpty) return fallback;
+    return Container(
+      width: size,
+      height: size,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(radius),
+        border: Border.all(color: SM.border),
+      ),
+      child: Image.network(url, fit: BoxFit.cover, semanticLabel: '${p.brand} ${p.name} 사진', errorBuilder: (_, _, _) => fallback),
+    );
+  }
 }

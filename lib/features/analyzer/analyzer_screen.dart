@@ -190,7 +190,11 @@ class _InputView extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Text('제품명만 검색하면 전성분을 자동으로 불러와요. 바르는 순서대로 쌓아 주세요.', style: st(13, c: SM.inkSub, h: 1.55)),
+          Text(
+            // 네이버 검색 결과에는 전성분이 없어서, 서버를 쓸 때는 문구를 바꿔요.
+            isMock ? '제품명만 검색하면 전성분을 자동으로 불러와요. 바르는 순서대로 쌓아 주세요.' : '제품을 검색해서 고르고 전성분을 넣어 주세요. 바르는 순서대로 쌓아 주세요.',
+            style: st(13, c: SM.inkSub, h: 1.55),
+          ),
           const SizedBox(height: 8),
           if (isMock) ...[
             Align(

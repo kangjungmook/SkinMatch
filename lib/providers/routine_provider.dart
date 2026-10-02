@@ -78,16 +78,30 @@ class RoutineNotifier extends Notifier<RoutineState> {
   void setCategory(String id, String cat) => _update(id, (s) => s.copyWith(category: cat));
   void setText(String id, String text) => _update(id, (s) => s.copyWith(text: text));
 
-  void pickProduct(String id, Product p) =>
-      _update(id, (s) => s.copyWith(product: p, category: p.category, text: p.routineText, manual: false));
+  /// 전성분이 없는 제품(네이버 검색 결과)은 골라도 text가 비어 있어서 분석에 들어가지 않아요.
+  /// 카드에서 사진·주요 성분·직접 입력으로 채우게 안내해요.
+  void pickProduct(String id, Product p) => _update(
+    id,
+    (s) => s.copyWith(product: p, category: p.category, text: p.hasIngredients ? p.routineText : '', manual: false, quick: false),
+  );
 
-  void clearProduct(String id) => _update(id, (s) => s.copyWith(clearProduct: true, text: '', manual: false));
+  /// 제품 이름을 첫 줄에 넣고 전성분을 직접 입력하게 해요.
+  void manualFor(String id, String label) =>
+      _update(id, (s) => s.copyWith(manual: true, clearProduct: true, quick: false, text: '$label\n'));
 
-  void manualMode(String id) => _update(id, (s) => s.copyWith(manual: true, clearProduct: true));
+  void clearProduct(String id) => _update(id, (s) => s.copyWith(clearProduct: true, text: '', manual: false, quick: false));
 
-  void searchMode(String id) => _update(id, (s) => s.copyWith(manual: false, text: ''));
+  void manualMode(String id) => _update(id, (s) => s.copyWith(manual: true, clearProduct: true, quick: false, text: s.quick ? '' : null));
 
-  void pasteText(String id, String text) => _update(id, (s) => s.copyWith(text: text, manual: true, clearProduct: true));
+  void searchMode(String id) => _update(id, (s) => s.copyWith(manual: false, text: '', quick: false));
+
+  void pasteText(String id, String text) => _update(id, (s) => s.copyWith(text: text, manual: true, clearProduct: true, quick: false));
+
+  /// 전성분 대신 주요 성분만 골라 넣어요 (간단 분석). [keys]는 ingredient_db의 성분 키예요.
+  void setQuick(String id, {required String name, required List<String> keys}) => _update(id, (s) {
+    final label = name.trim().isEmpty ? '${s.category} · 주요 성분' : name.trim();
+    return s.copyWith(text: '$label\n${keys.map(ingredientName).join(', ')}', quick: true, manual: false, clearProduct: true);
+  });
 
   void move(String id, int dir) {
     final s = [...state.steps];
@@ -131,7 +145,7 @@ class RoutineNotifier extends Notifier<RoutineState> {
     final steps = [...state.steps];
     final idx = targetId != null ? steps.indexWhere((x) => x.id == targetId) : steps.indexWhere((x) => !x.isFilled);
     if (idx >= 0) {
-      steps[idx] = steps[idx].copyWith(category: p.category, text: p.routineText, product: p, manual: false);
+      steps[idx] = steps[idx].copyWith(category: p.category, text: p.routineText, product: p, manual: false, quick: false);
     } else if (steps.length < maxSteps) {
       steps.add(mk(p.category, p.routineText, p));
     }
@@ -191,7 +205,7 @@ class RoutineNotifier extends Notifier<RoutineState> {
 
   void loadSnapshot(List<RoutineStep> steps) {
     _timer?.cancel();
-    state = state.copyWith(steps: [for (final s in steps) mk(s.category, s.text, s.product)]);
+    state = state.copyWith(steps: [for (final s in steps) mk(s.category, s.text, s.product).copyWith(quick: s.quick)]);
     finish();
   }
 

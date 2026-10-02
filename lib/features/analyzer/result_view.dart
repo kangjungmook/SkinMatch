@@ -141,6 +141,7 @@ class _ResultViewState extends ConsumerState<ResultView> with SingleTickerProvid
               ),
             ),
           ],
+          ..._inputNotice(),
           const SizedBox(height: 12),
           _gaugeCard(r, bd),
           const SizedBox(height: 12),
@@ -236,6 +237,41 @@ class _ResultViewState extends ConsumerState<ResultView> with SingleTickerProvid
         ],
       ),
     );
+  }
+
+  /// 주요 성분만 넣은 제품(간단 분석)과 전성분이 없어 빠진 제품을 알려 줘요.
+  List<Widget> _inputNotice() {
+    final steps = ref.watch(routineProvider.select((s) => s.steps));
+    final quick = steps.where((s) => s.quick && s.isFilled).length;
+    final skipped = steps.where((s) => s.product != null && !s.product!.hasIngredients && !s.isFilled).length;
+    if (quick == 0 && skipped == 0) return const [];
+    return [
+      const SizedBox(height: 12),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(color: SM.slate100, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 2),
+              child: SmIcon(Ic.info, size: 16, color: SM.ink600),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (quick > 0) Text('주요 성분만 넣은 제품 $quick개는 간단 분석이에요. 전성분을 넣으면 더 정확해져요.', style: st(13, c: SM.ink600, h: 1.5)),
+                  if (quick > 0 && skipped > 0) const SizedBox(height: 4),
+                  if (skipped > 0) Text('전성분을 넣지 않은 제품 $skipped개는 분석에서 빠졌어요.', style: st(13, c: SM.ink600, h: 1.5)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ];
   }
 
   Widget _gaugeCard(RoutineResult r, BandStyle bd) => SmCard(

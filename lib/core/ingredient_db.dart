@@ -21,7 +21,7 @@ final List<IngredientPattern> kIngredients = [
   IngredientPattern('ha', '히알루론산', RegExp(r'히알루론|hyaluron')),
   IngredientPattern('panthenol', '판테놀', RegExp(r'판테놀|panthenol')),
   IngredientPattern('cica', '시카', RegExp(r'시카|병풀|센텔라|마데카|cica|centella')),
-  IngredientPattern('uvf', '자외선 차단', RegExp(r'징크\s?옥사이드|티타늄\s?디옥사이드|zinc\s?oxide|titanium\s?dioxide|spf\s?\d')),
+  IngredientPattern('uvf', '자외선 차단', RegExp(r'징크\s?옥사이드|티타늄\s?디옥사이드|zinc\s?oxide|titanium\s?dioxide|spf\s?\d|자외선\s?차단')),
 ];
 
 const List<String> kActive = ['retinol', 'aha', 'bha', 'pha', 'vitc', 'bpo', 'niacin', 'copper'];

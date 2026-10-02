@@ -52,3 +52,11 @@ app.*.map.json
 /ios/Flutter/Secrets.xcconfig
 /android/app/google-services.json
 /ios/Runner/GoogleService-Info.plist
+
+# Firebase Functions
+functions/node_modules/
+functions/.secret.local
+functions/.env*
+.firebaserc
+.firebase/
+firebase-debug.log

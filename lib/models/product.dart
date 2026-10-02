@@ -9,6 +9,7 @@ class Product {
     this.registeredAt,
     this.imageUrl,
     this.barcode,
+    this.source,
   });
 
   final String id;
@@ -24,6 +25,12 @@ class Product {
   final String? imageUrl;
   final String? barcode;
 
+  /// 어디서 온 제품인지. 'naver'면 네이버 쇼핑 검색 결과라 전성분이 없어요.
+  final String? source;
+
+  /// 전성분이 있어야 분석할 수 있어요. 네이버 검색 결과는 사용자가 따로 넣어야 해요.
+  bool get hasIngredients => ingredients.isNotEmpty;
+
   /// 분석 엔진이 읽는 텍스트: 첫 줄은 제품 라벨, 둘째 줄은 전성분.
   String get routineText => '$brand $name\n${ingredients.join(', ')}';
 
@@ -36,6 +43,7 @@ class Product {
     registeredAt: registeredAt ?? this.registeredAt,
     imageUrl: imageUrl,
     barcode: barcode,
+    source: source,
   );
 
   factory Product.fromJson(Map<String, dynamic> j) => Product(
@@ -43,10 +51,11 @@ class Product {
     brand: j['brand'] as String,
     name: j['name'] as String,
     category: j['category'] as String,
-    ingredients: List<String>.from(j['ingredients'] as List),
+    ingredients: List<String>.from(j['ingredients'] as List? ?? const []),
     registeredAt: j['registeredAt'] as String?,
     imageUrl: j['imageUrl'] as String?,
     barcode: j['barcode'] as String?,
+    source: j['source'] as String?,
   );
 
   Map<String, dynamic> toJson() => {
@@ -58,5 +67,6 @@ class Product {
     if (registeredAt != null) 'registeredAt': registeredAt,
     if (imageUrl != null) 'imageUrl': imageUrl,
     if (barcode != null) 'barcode': barcode,
+    if (source != null) 'source': source,
   };
 }

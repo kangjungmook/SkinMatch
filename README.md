@@ -99,9 +99,57 @@ Firebase에는 카카오 제공업체가 없어서 **OIDC**로 연결해요. Fir
   ```
   Xcode → Runner → Build Settings → Excluded Architectures → Any SDK에 `armv7`도 넣어 주세요 (ML Kit 요구 사항).
 
-## 제품 DB API 연결
+## 네이버 쇼핑 검색 연결 (`functions/`)
 
-`PRODUCT_API_BASE_URL`을 넣으면 `ApiProductRepository`로 바뀌어요. 서버는 아래 형식만 맞추면 돼요.
+제품 검색은 네이버 쇼핑 검색 API를 씁니다. 키가 앱에 들어가면 안 되기 때문에 **서버(Firebase Cloud Functions)가 대신 불러요.**
+
+- 네이버 응답에는 **제품명·브랜드·카테고리·사진만 있고 전성분과 바코드는 없어요.**
+- 그래서 검색해서 고른 제품은 카드에 "전성분 정보가 아직 없어요"가 뜨고, **사진으로 / 주요 성분 / 직접 입력** 중 하나로 채워야 분석에 들어가요.
+- "주요 성분"을 고르면 제품 이름(예: "레티놀 세럼" → 레티놀)과 종류(선크림 → 자외선 차단)를 보고 미리 골라 둬요. 사용자가 확인해야 들어가요.
+- 전성분을 넣지 않은 제품은 분석에서 빠지고, 결과 화면에 그 사실을 알려 줘요.
+
+### 1. 네이버 키 발급 (직접 해야 해요)
+1. [네이버 개발자센터](https://developers.naver.com/apps/#/register) → 애플리케이션 등록
+2. 사용 API: **검색** 선택, 환경: WEB 설정 → `http://localhost` 입력
+3. 발급된 **Client ID**와 **Client Secret**을 복사해 둬요. (코드나 저장소에 넣지 마세요)
+
+### 2. 내 컴퓨터에서 바로 써 보기 (Firebase 없이)
+```bash
+cd functions
+npm install
+NAVER_CLIENT_ID=발급받은_ID NAVER_CLIENT_SECRET=발급받은_Secret npm run dev
+# → http://localhost:8787 에서 서버가 떠요
+# 확인: http://localhost:8787/products/search?q=토너
+
+# 다른 터미널에서 (프로젝트 폴더)
+flutter run -d chrome --dart-define=PRODUCT_API_BASE_URL=http://localhost:8787
+```
+> Windows PowerShell이라면 `$env:NAVER_CLIENT_ID="..."; $env:NAVER_CLIENT_SECRET="..."; npm run dev` 처럼 넣어요.
+> 휴대폰에서는 `localhost`가 휴대폰 자신을 가리켜서 안 돼요. 휴대폰은 아래 3번(배포)을 한 뒤 그 주소를 쓰세요.
+
+### 3. Firebase에 배포 (휴대폰에서 쓰려면)
+Cloud Functions 배포는 Firebase **Blaze(종량제) 요금제**가 필요해요.
+```bash
+npm install -g firebase-tools
+firebase login
+cp .firebaserc.example .firebaserc     # 안의 프로젝트 ID를 내 것으로 바꾸기
+firebase functions:secrets:set NAVER_CLIENT_ID
+firebase functions:secrets:set NAVER_CLIENT_SECRET
+firebase deploy --only functions
+```
+배포가 끝나면 나오는 주소(`https://asia-northeast3-<프로젝트ID>.cloudfunctions.net/api`)를 `config/env.json`의 `PRODUCT_API_BASE_URL`에 넣어요.
+
+### 서버 테스트
+```bash
+cd functions && npm test
+```
+네이버 공식 문서의 응답 형식대로 만든 가짜 응답으로 시험해요. **실제 네이버 키로는 아직 실행해 보지 못했어요.** 처음 연결할 때 아래를 확인해 주세요.
+- 화장품만 남기는 기준이 `category1 == "화장품/미용"`이에요. 실제 분류 이름이 다르면 `functions/src/naver.js`의 `toProduct`를 고쳐요.
+- 단계 종류(토너·세럼…)는 제품명과 네이버 카테고리 단어로 정해요 (`mapCategory`). 틀리면 사용자가 카드에서 바꿀 수 있어요.
+
+## 제품 DB API 형식
+
+`PRODUCT_API_BASE_URL`을 넣으면 `ApiProductRepository`로 바뀌어요. 서버는 아래 형식만 맞추면 돼요. (`functions/`의 네이버 서버도 이 형식이에요. 바코드·대체 추천은 네이버에 정보가 없어서 404·빈 목록을 돌려줘요.)
 
 ```
 GET /products/search?q={검색어}&limit=5   → Product[]
@@ -114,6 +162,7 @@ GET /products/{id}                        → Product
 { "id": "p1", "brand": "무드랩", "name": "레티놀 0.1% 나이트 세럼", "category": "세럼",
   "ingredients": ["정제수", "레티놀 0.1%", "세라마이드NP"], "barcode": "880...", "imageUrl": null }
 ```
+`ingredients`가 빈 배열이면 "전성분 없는 제품"으로 보고 사용자에게 입력하게 해요. `source: "naver"`는 출처 표시용이에요.
 
 ## 폴더 구조
 
@@ -129,6 +178,7 @@ lib/
   features/analyzer/        루틴 입력, 분석 결과, 바텀 시트(화장대·성분 사전·스캔·상세·등록)
   features/vanity/          내 화장대
   features/profile/         마이페이지
+functions/                  제품 검색 서버 (Firebase Cloud Functions, 네이버 쇼핑 검색)
 design/                     원본 프로토타입과 로고 (참고용)
 docs/Flutter 개발 가이드.md   화면 명세 · 분석 규칙 · 이번 구현에서 바뀐 점
 ```
@@ -141,6 +191,8 @@ flutter test
 ```
 
 - `test/analyzer_engine_test.dart`: 프로토타입의 JS 분석 로직을 Node로 실행해 얻은 결과와 **숫자·태그·순서가 똑같은지** 6가지 루틴으로 확인해요.
+- `test/naver_search_test.dart`: 전성분 없는 검색 결과 → 주요 성분(이름 추정) → 분석 → "간단 분석 / 빠진 제품" 안내까지, 440px·360px에서 확인해요.
+- `functions/test/api.test.js`: 서버가 네이버 응답을 화장품만 남기고, 중복을 합치고, 앱 형식으로 바꾸는지 확인해요.
 - `test/app_flow_test.dart`: 실제 Pretendard 폰트로 로그인 → 진단 → 샘플 루틴 분석 → 저장 흐름을 돌리고, 360px 좁은 화면에서 넘침이 없는지 확인해요.
 
 > 성분 사전 문구와 충돌 가중치는 목업용 일반 정보예요. 출시 전에 피부과 전문의나 화장품 전문가의 검수를 받으세요.

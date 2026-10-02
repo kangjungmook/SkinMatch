@@ -50,7 +50,8 @@ final ingredientDictionaryProvider = FutureProvider<IngredientDictionary>((ref) 
 });
 
 /// 루틴 단계에 사진으로 전성분을 넣어요: 촬영/앨범 선택 → 글자 인식 → 확인 화면
-Future<void> startLabelScan(BuildContext context, WidgetRef ref, {required String stepId, required String category}) async {
+/// [base]는 검색으로 고른 제품(전성분 없음)이에요. 있으면 브랜드·제품명을 미리 채워요.
+Future<void> startLabelScan(BuildContext context, WidgetRef ref, {required String stepId, required String category, Product? base}) async {
   final reader = ref.read(labelReaderProvider);
   if (!reader.supported) {
     ref.read(toastProvider.notifier).show('사진으로 입력하기는 휴대폰 앱에서 쓸 수 있어요');
@@ -73,7 +74,8 @@ Future<void> startLabelScan(BuildContext context, WidgetRef ref, {required Strin
       imagePath: path,
       stepId: stepId,
       category: category,
-      onRetake: () => startLabelScan(context, ref, stepId: stepId, category: category),
+      base: base,
+      onRetake: () => startLabelScan(context, ref, stepId: stepId, category: category, base: base),
     ),
   );
 }
@@ -151,11 +153,12 @@ class _SourcePicker extends StatelessWidget {
 
 /// 읽은 전성분 확인 화면
 class LabelReviewSheet extends ConsumerStatefulWidget {
-  const LabelReviewSheet({super.key, required this.imagePath, required this.stepId, required this.category, this.onRetake});
+  const LabelReviewSheet({super.key, required this.imagePath, required this.stepId, required this.category, this.base, this.onRetake});
 
   final String imagePath;
   final String stepId;
   final String category;
+  final Product? base;
   final VoidCallback? onRetake;
 
   @override
@@ -163,9 +166,9 @@ class LabelReviewSheet extends ConsumerStatefulWidget {
 }
 
 class _LabelReviewSheetState extends ConsumerState<LabelReviewSheet> {
-  final _brand = TextEditingController();
-  final _name = TextEditingController();
-  late String _cat = widget.category;
+  late final _brand = TextEditingController(text: widget.base?.brand ?? '');
+  late final _name = TextEditingController(text: widget.base?.name ?? '');
+  late String _cat = widget.base?.category ?? widget.category;
   bool _saveToVanity = true;
   ParsedLabel? _label;
   List<ParsedIngredient> _items = [];
@@ -238,6 +241,8 @@ class _LabelReviewSheetState extends ConsumerState<LabelReviewSheet> {
       category: _cat,
       registeredAt: '${now.year}.${two(now.month)}.${two(now.day)}',
       ingredients: [for (final i in _items) i.name],
+      imageUrl: widget.base?.imageUrl,
+      source: widget.base?.source,
     );
     ref.read(routineProvider.notifier).pickProduct(widget.stepId, p);
     if (_saveToVanity) ref.read(vanityProvider.notifier).addProduct(p);
