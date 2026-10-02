@@ -265,6 +265,30 @@ class _ResultViewState extends ConsumerState<ResultView> with SingleTickerProvid
                   if (quick > 0) Text('주요 성분만 넣은 제품 $quick개는 간단 분석이에요. 전성분을 넣으면 더 정확해져요.', style: st(13, c: SM.ink600, h: 1.5)),
                   if (quick > 0 && skipped > 0) const SizedBox(height: 4),
                   if (skipped > 0) Text('전성분을 넣지 않은 제품 $skipped개는 분석에서 빠졌어요.', style: st(13, c: SM.ink600, h: 1.5)),
+                  const SizedBox(height: 8),
+                  Pressable(
+                    onTap: ref.read(routineProvider.notifier).backToInput,
+                    child: Container(
+                      height: 40,
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(999),
+                        border: Border.all(color: SM.line),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SmIcon(Ic.camera, size: 14, color: SM.ink700, strokeWidth: 2),
+                          const SizedBox(width: 6),
+                          Text(
+                            '전성분 넣고 자세히 분석하기',
+                            style: st(13, w: w600, c: SM.ink700),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

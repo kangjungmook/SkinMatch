@@ -158,6 +158,12 @@ void main() {
       expect(find.text('루틴 분석 결과'), findsOneWidget);
       expect(find.text('주요 성분만 넣은 제품 2개는 간단 분석이에요. 전성분을 넣으면 더 정확해져요.'), findsOneWidget);
       expect(find.text('전성분을 넣지 않은 제품 1개는 분석에서 빠졌어요.'), findsOneWidget);
+
+      // 결과 화면에서 바로 전성분을 넣으러 돌아가요 (입력한 단계는 그대로예요)
+      await tap(find.text('전성분 넣고 자세히 분석하기'));
+      expect(find.text('루틴 분석 결과'), findsNothing);
+      expect(container.read(routineProvider).steps.length, 3);
+      expect(container.read(routineProvider).steps.where((s) => s.quick).length, 2);
       await tester.pump(const Duration(seconds: 3));
     });
   }
